@@ -38,14 +38,14 @@ class EditTask extends Component {
         <hr />
         <h3>Edit form</h3>
         <form onSubmit={this.handleFormSubmit}>
-          <label>Title:</label>
+          <label>Title: </label>
           <input
             type="text"
             name="title"
             value={this.state.title}
             onChange={e => this.handleChange(e)}
           />
-          <label>Description:</label>
+          <label>Description: </label>
           <textarea
             name="description"
             value={this.state.description}

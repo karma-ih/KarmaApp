@@ -26,7 +26,7 @@ class EditTask extends Component {
   };
 
   handleChange = event => {
-    const { title, description } = event.target;
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });

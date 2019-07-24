@@ -69,6 +69,13 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.locals.title = "Express - Generated with IronGenerator";
 
 // ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
+const cors = require("cors");
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000"]
+  })
+);
 
 // ROUTES MIDDLEWARE STARTS HERE:
 

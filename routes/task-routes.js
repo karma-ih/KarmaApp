@@ -12,6 +12,7 @@ router.post("/tasks", (req, res, next) => {
     description: req.body.description
   })
     .then(response => {
+      console.log(response);
       res.json(response);
     })
     .catch(err => {

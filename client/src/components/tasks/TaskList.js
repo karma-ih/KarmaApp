@@ -12,6 +12,10 @@ class TaskList extends Component {
     });
   };
 
+  updateTask = newTask => {
+    this.setState({ listOfTasks: [...this.state.listOfTasks, newTask] });
+  };
+
   componentDidMount() {
     this.getAllTasks();
   }
@@ -20,19 +24,22 @@ class TaskList extends Component {
     return (
       <div>
         <div style={{ width: "60%", float: "left" }}>
-          {this.state.listOfTasks.map(task => {
+          {this.state.listOfTasks.map((task, i) => {
             return (
               <div key={task._id}>
                 <Link to={`/tasks/${task._id}`}>
                   <h3>{task.title}</h3>
                 </Link>
-                {/* <p style={{maxWidth: '400px'}} >{task.description} </p> */}
               </div>
             );
           })}
         </div>
         <div style={{ width: "40%", float: "right" }}>
-          <AddTask getData={() => this.getAllTasks()} /> {/* <== !!! */}
+          <AddTask
+            getData={() => this.getAllTasks()}
+            updateTask={this.updateTask}
+          />{" "}
+          {/* <== !!! */}
         </div>
       </div>
     );

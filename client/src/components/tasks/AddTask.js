@@ -9,8 +9,9 @@ class AddTask extends Component {
     const { title, description } = this.state;
     axios
       .post("http://localhost:5555/api/tasks", { title, description })
-      .then(() => {
+      .then(response => {
         //   this.props.getData();
+        this.props.updateTask({ title, description, _id: response.data._id });
         this.setState({ title: "", description: "" });
       })
       .catch(err => console.log(err));

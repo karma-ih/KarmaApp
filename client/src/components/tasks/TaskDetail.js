@@ -37,12 +37,25 @@ class TaskDetail extends Component {
     }
   };
 
+  deleteTask = () => {
+    const { params } = this.props.match;
+    axios
+      .delete(`http://localhost:5555/api/tasks/${params.id}`)
+      .then(() => {
+        this.props.history.push("/tasks");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
         <h1>{this.state.title}</h1>
         <p>{this.state.description}</p>
         <div>{this.renderEditForm()} </div>
+        <button onClick={() => this.deleteTask()}>Delete Task</button>
         <Link to={"/tasks"}>Back to Tasks</Link>
       </div>
     );

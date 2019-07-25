@@ -7,7 +7,7 @@ class TaskList extends Component {
   state = { listOfTasks: [] };
 
   getAllTasks = () => {
-    axios.get("http://localhost:5555/api/tasks").then(responseFromApi => {
+    axios.get("/api/tasks").then(responseFromApi => {
       this.setState({ listOfTasks: responseFromApi.data });
     });
   };

@@ -23,7 +23,7 @@ class Signup extends Component {
 
     signup(username, password)
       .then(data => {
-        this.props.setUser(data);
+        // this.props.setUser(data);
         this.props.history.push("/tasks");
       })
       .catch(err => {

@@ -8,7 +8,7 @@ class AddTask extends Component {
     event.preventDefault();
     const { title, description } = this.state;
     axios
-      .post("http://localhost:5555/api/tasks", { title, description })
+      .post("/api/tasks", { title, description })
       .then(response => {
         //   this.props.getData();
         this.props.updateTask({ title, description, _id: response.data._id });

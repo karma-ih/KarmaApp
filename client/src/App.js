@@ -31,7 +31,7 @@ export class App extends Component {
           <Protected
             exact
             path="/signup"
-            redirectPath="/projects"
+            redirectPath="/tasks"
             setUser={this.setUser}
             user={!this.state.user}
             component={Signup}
@@ -39,7 +39,7 @@ export class App extends Component {
           <Protected
             exact
             path="/login"
-            redirectPath="/projects"
+            redirectPath="/tasks"
             setUser={this.setUser}
             user={!this.state.user}
             component={Login}

@@ -100,9 +100,9 @@ const index = require("./routes/index");
 app.use("/", index);
 
 const taskRoutes = require("./routes/task-routes");
-app.use("/api", taskRoutes);
+app.use("/api/tasks", taskRoutes);
 
 const authRoutes = require("./routes/auth-routes");
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 
 module.exports = app;

@@ -5,11 +5,12 @@ const router = express.Router();
 const Task = require("../models/task-model");
 
 //POST ROUTE FOR TASKS
-router.post("/tasks", (req, res, next) => {
+router.post("/", (req, res, next) => {
   console.log(req.body);
   Task.create({
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
+    creator: req.user._id
   })
     .then(response => {
       console.log(response);
@@ -21,7 +22,7 @@ router.post("/tasks", (req, res, next) => {
 });
 
 //GET ROUTE FOR TASKS
-router.get("/tasks", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Task.find()
     .then(allTheTasks => {
       res.json(allTheTasks);
@@ -32,7 +33,7 @@ router.get("/tasks", (req, res, next) => {
 });
 
 //GET ROUTE FOR SPECIFIC TASK
-router.get("/tasks/:id", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: "specified ID is not valid" });
     return;
@@ -47,7 +48,7 @@ router.get("/tasks/:id", (req, res, next) => {
 });
 
 //PUT ROUTE FOR SPECIFIC TASK
-router.put("/tasks/:id", (req, res, next) => {
+router.put("/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;
@@ -64,7 +65,7 @@ router.put("/tasks/:id", (req, res, next) => {
     });
 });
 
-router.delete("/tasks/:id", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;

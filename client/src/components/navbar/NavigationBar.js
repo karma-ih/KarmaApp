@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class Navbar extends Component {
+class NavigationBar extends Component {
   render() {
     return (
       <nav className="nav-style">
@@ -10,6 +10,12 @@ class Navbar extends Component {
             <Link to="/tasks" style={{ textDecoration: "none" }}>
               Tasks
             </Link>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              Sign Up
+            </Link>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              Log In
+            </Link>
           </li>
         </ul>
       </nav>
@@ -17,4 +23,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default NavigationBar;

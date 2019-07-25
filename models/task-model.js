@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
   title: String,
-  description: String
+  description: String,
+  creator: { type: Schema.Types.ObjectId, ref: "User" }
   // creator: [{ type: Schema.Types.ObjectId, ref: "User" }]
   // owner will be added later on
 });

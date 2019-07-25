@@ -83,4 +83,14 @@ authRoutes.get("/loggedin", (req, res, next) => {
   res.status(403).json({ message: "Unauthorised" });
 });
 
+authRoutes.get("/facebook", passport.authenticate("facebook"));
+
+authRoutes.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+);
+
 module.exports = authRoutes;

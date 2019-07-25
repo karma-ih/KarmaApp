@@ -21,13 +21,6 @@ authRoutes.post("/signup", (req, res, next) => {
     return;
   }
 
-  //   if (foundUser) {
-  //     res
-  //       .status(400)
-  //       .json({ message: "Usernam already taken. Choose another one" });
-  //     return;
-  //   }
-
   User.findOne({ username: username })
     .then(user => {
       if (user) {
@@ -57,21 +50,34 @@ authRoutes.post("/signup", (req, res, next) => {
     });
 });
 
-//   aNewUser.save(err => {
-//     if (err) {
-//       res.status(400).json({ message: "Saving user to database went wrong" });
-//       return;
-//     }
+authRoutes.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user) => {
+    if (err) {
+      return res.status(500).json({ message: "Error while authenticating" });
+    } else if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    req.login(user, err => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "Error while attempting to login" });
+      }
 
-//     req.login(aNewUser, err => {
-//       if (err) {
-//         res.status(500).json({ message: "Login after signup went bad" });
-//         return;
-//       }
+      return res.status(200).json(user);
+    });
+  })(req, res);
+});
 
-//       res.status(200).json(aNewUser);
-//     });
-//   });
-// });
+authRoutes.post("/logout", (req, res) => {
+  req.logout();
+  res.status(200).json({ message: "User was succesfully logged out" });
+  console.log("loggedout");
+});
+
+authRoutes.get("/loggedin", (req, res) => {
+  res.json(req.user);
+  console.log("loggedin");
+});
 
 module.exports = authRoutes;

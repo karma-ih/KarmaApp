@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, NavDropdown } from "react-bootstrap";
-import "../../App.css";
 
 class NavigationBar extends Component {
   render() {

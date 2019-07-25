@@ -7,7 +7,7 @@ import TaskDetail from "./components/tasks/TaskDetail";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
-import FooterBar from "./components/footer/FooterBar";
+import FooterBar from "./components/appbar/AppBar";
 import "bootstrap/dist/css/bootstrap.css";
 
 export class App extends Component {

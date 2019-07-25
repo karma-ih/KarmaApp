@@ -13,15 +13,15 @@ const path = require("path");
 // INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
 // AND UN-COMMENT OUT FOLLOWING LINES:
 
-// const session       = require('express-session');
-// const passport      = require('passport');
+const session = require("express-session");
+const passport = require("passport");
 
-// require('./configs/passport');
+require("./configs/passport");
 
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
 mongoose
-  .connect("mongodb://localhost/Karma-App", {
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/Karma-App", {
     useNewUrlParser: true
   })
   .then(x => {
@@ -58,15 +58,32 @@ app.use(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
+
 app.use(express.static(path.join(__dirname, "public")));
+
+//On heroku mod uncomment below
+// app.use(express.static(path.join(__dirname, "/client/build")));
+
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // ADD SESSION SETTINGS HERE:
+const MongoStore = require("connect-mongo")(session);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+);
 
 // USE passport.initialize() and passport.session() HERE:
+app.use(passport.initialize());
+app.use(passport.session());
 
 // default value for title local
-app.locals.title = "Express - Generated with IronGenerator";
+app.locals.title = "KarmaApp";
 
 // ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
 const cors = require("cors");
@@ -82,6 +99,10 @@ app.use(
 const index = require("./routes/index");
 app.use("/", index);
 
-app.use("/api", require("./routes/task-routes"));
+const taskRoutes = require("./routes/task-routes");
+app.use("/api", taskRoutes);
+
+const authRoutes = require("./routes/auth-routes");
+app.use("/api", authRoutes);
 
 module.exports = app;

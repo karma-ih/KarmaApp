@@ -25,9 +25,21 @@ class FooterBar extends Component {
     return (
       <div>
         <div style={phantom} />
-        <div style={style}>
+        <div class="footer-icons-wrapper" style={style}>
+          <Link style={{ color: "white" }} to="/">
+            <i class="fas footer-icons fa-home" />
+          </Link>
           <Link style={{ color: "white" }} to="/tasks">
-            Tasks
+            <i class="fas footer-icons fa-store" />
+          </Link>
+          <Link style={{ color: "white" }} to="/">
+            <i class="far footer-icons fa-plus-square" />
+          </Link>
+          <Link style={{ color: "white" }} to="/">
+            <i class="fas footer-icons fa-map" />
+          </Link>
+          <Link style={{ color: "white" }} to="/">
+            <i class="fas footer-icons fa-user" />
           </Link>
         </div>
       </div>

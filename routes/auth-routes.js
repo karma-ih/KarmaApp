@@ -69,15 +69,18 @@ authRoutes.post("/login", (req, res, next) => {
   })(req, res);
 });
 
-authRoutes.post("/logout", (req, res) => {
+authRoutes.post("/logout", (req, res, next) => {
   req.logout();
   res.status(200).json({ message: "User was succesfully logged out" });
   console.log("loggedout");
 });
 
-authRoutes.get("/loggedin", (req, res) => {
-  res.json(req.user);
-  console.log("loggedin");
+authRoutes.get("/loggedin", (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.status(200).json(req.user);
+    return;
+  }
+  res.status(403).json({ message: "Unauthorised" });
 });
 
 module.exports = authRoutes;

@@ -7,6 +7,7 @@ import TaskDetail from "./components/tasks/TaskDetail";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
+import FooterBar from "./components/footer/FooterBar";
 import "bootstrap/dist/css/bootstrap.css";
 
 export class App extends Component {
@@ -21,6 +22,7 @@ export class App extends Component {
           <Route exact path="/tasks" component={TaskList} />
           <Route exact path="/tasks/:id" component={TaskDetail} />
         </Switch>
+        <FooterBar />
       </div>
     );
   }

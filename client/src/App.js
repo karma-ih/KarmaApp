@@ -57,6 +57,7 @@ export class App extends Component {
             user={this.state.user}
             component={TaskDetail}
           />
+          <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>
         <AppBar />
       </div>

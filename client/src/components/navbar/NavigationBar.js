@@ -26,11 +26,12 @@ const NavigationBar = props => {
       {props.user ? (
         <>
           <NavDropdown className="ml-auto main-navbar" title="Logout">
-            <NavDropdown.Item href="/login" className="nav-dropdown">
-              {" "}
-              <Link onClick={() => handleLogout(props)} to="/">
-                Logout
-              </Link>
+            <NavDropdown.Item
+              onClick={() => handleLogout(props)}
+              href="/"
+              className="nav-dropdown"
+            >
+              Logout
             </NavDropdown.Item>
           </NavDropdown>
         </>
@@ -38,17 +39,10 @@ const NavigationBar = props => {
         <>
           <NavDropdown className="ml-auto main-navbar" title="Login/Signup">
             <NavDropdown.Item href="/login" className="nav-dropdown">
-              {" "}
-              <Link to="/login" style={{ textDecoration: "none" }}>
-                Login
-              </Link>
+              Login
             </NavDropdown.Item>
-
             <NavDropdown.Item href="/signup" className="nav-dropdown">
-              {" "}
-              <Link to="/signup" style={{ textDecoration: "none" }}>
-                Signup
-              </Link>
+              Signup
             </NavDropdown.Item>
           </NavDropdown>
         </>

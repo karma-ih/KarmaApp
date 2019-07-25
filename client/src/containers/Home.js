@@ -1,9 +1,6 @@
 import React from "react";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import Facebook from "../components/Facebook";
-=======
->>>>>>> origin/development
 
 const Home = () => {
   return (

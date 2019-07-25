@@ -3,8 +3,6 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
-const favicon = require("serve-favicon");
-const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
@@ -56,15 +54,10 @@ app.use(
   })
 );
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-
 app.use(express.static(path.join(__dirname, "public")));
 
 //On heroku mod uncomment below
 // app.use(express.static(path.join(__dirname, "/client/build")));
-
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // ADD SESSION SETTINGS HERE:
 const MongoStore = require("connect-mongo")(session);
@@ -84,15 +77,6 @@ app.use(passport.session());
 
 // default value for title local
 app.locals.title = "KarmaApp";
-
-// ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
-const cors = require("cors");
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3000"]
-  })
-);
 
 // ROUTES MIDDLEWARE STARTS HERE:
 

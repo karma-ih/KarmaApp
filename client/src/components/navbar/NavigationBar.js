@@ -7,15 +7,18 @@ class NavigationBar extends Component {
   render() {
     return (
       <Navbar style={{ backgroundColor: "#000" }}>
-        <Navbar.Brand href="/">
-          <img
-            src="/Background.png"
-            width="35"
-            height="35"
-            className="d-inline-block align-top"
-            alt="KarmaApp logo"
-          />
-        </Navbar.Brand>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Navbar.Brand>
+            <img
+              src="/Background.png"
+              width="35"
+              height="35"
+              className="d-inline-block align-top"
+              alt="KarmaApp logo"
+            />
+          </Navbar.Brand>
+        </Link>
+
         <NavDropdown className="ml-auto main-navbar" title="Login/Register">
           <NavDropdown.Item href="/login" className="nav-dropdown">
             {" "}

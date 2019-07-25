@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import EditTask from "./EditTask";
 
 class TaskDetail extends Component {
@@ -11,9 +11,8 @@ class TaskDetail extends Component {
   }
 
   getSingleTask = () => {
-    const { params } = this.props.match;
+    // const { params } = this.props.match;
     axios
-      .get(`http://localhost:5555/api/tasks/${params.id}`)
       .then(responseFromApi => {
         const theTask = responseFromApi.data;
         this.setState(theTask);

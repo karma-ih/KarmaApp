@@ -20,7 +20,7 @@ var phantom = {
   width: "100%"
 };
 
-class FooterBar extends Component {
+class AppBar extends Component {
   render() {
     return (
       <div>
@@ -47,4 +47,4 @@ class FooterBar extends Component {
   }
 }
 
-export default FooterBar;
+export default AppBar;

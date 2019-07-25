@@ -7,22 +7,59 @@ import TaskDetail from "./components/tasks/TaskDetail";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
-import FooterBar from "./components/appbar/AppBar";
+import AppBar from "./components/appbar/AppBar";
+import Protected from "./components/Protected";
 import "bootstrap/dist/css/bootstrap.css";
 
 export class App extends Component {
+  state = {
+    user: this.props.user
+  };
+
+  setUser = user => {
+    this.setState({
+      user: user
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <NavigationBar />
+        <NavigationBar setUser={this.setUser} user={this.state.user} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/tasks" component={TaskList} />
-          <Route exact path="/tasks/:id" component={TaskDetail} />
+          <Protected
+            exact
+            path="/signup"
+            redirectPath="/projects"
+            setUser={this.setUser}
+            user={!this.state.user}
+            component={Signup}
+          />
+          <Protected
+            exact
+            path="/login"
+            redirectPath="/projects"
+            setUser={this.setUser}
+            user={!this.state.user}
+            component={Login}
+          />
+          <Protected
+            exact
+            path="/tasks"
+            redirectPath="/login"
+            user={this.state.user}
+            component={TaskList}
+          />
+          <Protected
+            exact
+            path="/tasks/:id"
+            user={this.state.user}
+            component={TaskDetail}
+          />
+          <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>
-        <FooterBar />
+        <AppBar />
       </div>
     );
   }

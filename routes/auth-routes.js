@@ -89,4 +89,42 @@ authRoutes.get(
   })
 );
 
+//Fcebook Login Route
+
+authRoutes.post("/signup/facebook", (req, res, next) => {
+  console.log(req.body);
+  const { name, id } = req.body;
+
+  User.findOne({ facebookId: id })
+    .then(user => {
+      if (user) {
+        return req.login(user, err => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: "Error while attempting to login" });
+          }
+          return res.status(200).json(user);
+        });
+      }
+
+      if (!user) {
+        return User.create({ fullName: name, facebookId: id }).then(newUser => {
+          req.login(newUser, err => {
+            if (err) {
+              return res
+                .status(500)
+                .json({ message: "Error while attempting login" });
+            }
+
+            res.status(200).json(newUser);
+          });
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error at signup" });
+    });
+});
+
 module.exports = authRoutes;

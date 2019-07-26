@@ -13,4 +13,11 @@ const signup = (username, password) =>
 const logout = () =>
   axios.post("/api/auth/logout").then(response => response.data);
 
-export { login, signup, logout };
+const facebooksignin = (name, id) => {
+  console.log(name, id);
+  axios
+    .post("/api/auth/signup/facebook", { name: name, id: id })
+    .then(response => response.data);
+};
+
+export { login, signup, logout, facebooksignin };

@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     username: {
-      type: String,
-      required: true,
-      unique: true
+      type: String
+      // required: true,
+      // unique: true
     },
     password: {
       type: String
@@ -14,26 +14,26 @@ const userSchema = new Schema(
     },
     facebookId: {
       type: String,
-      required: true,
+      // required: true,
       unique: true
     },
     facebookName: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     },
     address: {
       type: Object,
       city: {
-        type: String,
-        required: true
+        type: String
+        // required: true
       },
       postalCode: {
-        type: String,
-        required: true
+        type: String
+        // required: true
       },
       country: {
-        type: String,
-        required: true
+        type: String
+        // required: true
       }
     },
     location: {
@@ -43,8 +43,8 @@ const userSchema = new Schema(
         default: "Point"
       },
       coordinates: {
-        type: [Number],
-        required: true
+        type: [Number]
+        // required: true
       }
     }
   },

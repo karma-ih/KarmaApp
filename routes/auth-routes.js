@@ -109,17 +109,19 @@ authRoutes.post("/signup/facebook", (req, res, next) => {
       }
 
       if (!user) {
-        return User.create({ fullName: name, facebookId: id }).then(newUser => {
-          req.login(newUser, err => {
-            if (err) {
-              return res
-                .status(500)
-                .json({ message: "Error while attempting login" });
-            }
+        return User.create({ facebookName: name, facebookId: id }).then(
+          newUser => {
+            req.login(newUser, err => {
+              if (err) {
+                return res
+                  .status(500)
+                  .json({ message: "Error while attempting login" });
+              }
 
-            res.status(200).json(newUser);
-          });
-        });
+              res.status(200).json(newUser);
+            });
+          }
+        );
       }
     })
     .catch(err => {

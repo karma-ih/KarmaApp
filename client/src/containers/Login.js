@@ -36,7 +36,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="username">Username:</Form.Label>
@@ -65,10 +65,8 @@ export default class Login extends Component {
 
           <Button type="submit">Login</Button>
         </Form>
-        <br />
-        <br />
-        {/* <Facebook /> */}
-      </>
+        <Facebook />
+      </React.Fragment>
     );
   }
 }

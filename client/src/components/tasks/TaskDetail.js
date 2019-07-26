@@ -4,15 +4,20 @@ import { Link } from "react-router-dom";
 import EditTask from "./EditTask";
 
 class TaskDetail extends Component {
-  state = {};
+  state = {
+    title: "",
+    description: "",
+    project: ""
+  };
 
   componentDidMount() {
     this.getSingleTask();
   }
 
   getSingleTask = () => {
-    // const { params } = this.props.match;
+    const { taskId } = this.props;
     axios
+      .get(`/api/tasks/${taskId}`)
       .then(responseFromApi => {
         const theTask = responseFromApi.data;
         this.setState(theTask);

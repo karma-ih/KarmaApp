@@ -2,12 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-const Task = require("../models/task-model");
+const Posting = require("../models/Posting");
 
-//POST ROUTE FOR TASKS
+//POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
   console.log(req.body);
-  Task.create({
+  Posting.create({
     title: req.body.title,
     description: req.body.description,
     creator: req.user._id
@@ -21,24 +21,24 @@ router.post("/", (req, res, next) => {
     });
 });
 
-//GET ROUTE FOR TASKS
+//GET ROUTE FOR POSTINGS
 router.get("/", (req, res, next) => {
-  Task.find()
-    .then(allTheTasks => {
-      res.json(allTheTasks);
+  Posting.find()
+    .then(allPostings => {
+      res.json(allPostings);
     })
     .catch(err => {
       res.json(err);
     });
 });
 
-//GET ROUTE FOR SPECIFIC TASK
+//GET ROUTE FOR SPECIFIC Posting
 router.get("/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: "specified ID is not valid" });
     return;
   }
-  Task.findById(req.params.id)
+  Posting.findById(req.params.id)
     .then(response => {
       res.status(200).json(response);
     })
@@ -47,17 +47,17 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-//PUT ROUTE FOR SPECIFIC TASK
+//PUT ROUTE FOR SPECIFIC POSTING
 router.put("/:id", (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;
   }
 
-  Task.findByIdAndUpdate(req.params.id, req.body)
+  Posting.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json({
-        message: `Task with ${req.params.id} is updated successfully`
+        message: `Posting with ${req.params.id} is updated successfully`
       });
     })
     .catch(err => {
@@ -71,10 +71,10 @@ router.delete("/:id", (req, res, next) => {
     return;
   }
 
-  Task.findByIdAndRemove(req.params.id)
+  Posting.findByIdAndRemove(req.params.id)
     .then(() => {
       res.json({
-        message: `Task with id ${req.params.id} is removed successfully`
+        message: `Posting with id ${req.params.id} is removed successfully`
       });
     })
     .catch(err => {

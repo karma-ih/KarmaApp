@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Facebook from "../components/Facebook";
 
 const Home = () => {
   return (
     <div>
-      <h1>Home page Container</h1>
-      <Facebook />
+      <div className="landingOne">
+        <h1>Welcome to Karma Coin</h1>
+      </div>
     </div>
   );
 };

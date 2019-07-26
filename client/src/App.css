@@ -73,3 +73,11 @@ nav > button {
     margin-right: 15px;
   }
 }
+
+.landingOne {
+  color: white;
+  height: 85vh;
+  background-image: url("/kazuend-2KXEb_8G5vo-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+}

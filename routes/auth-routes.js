@@ -4,7 +4,7 @@ const authRoutes = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 
-const User = require("../models/user-model");
+const User = require("../models/User");
 
 authRoutes.post("/signup", (req, res, next) => {
   const { username, password } = req.body;

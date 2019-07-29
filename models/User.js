@@ -13,11 +13,24 @@ const userSchema = new Schema(
       // minlength: 8
     },
     facebookId: {
-      type: String,
+      type: String
       // required: true,
-      unique: true
+      // unique: true // Anih: Cannot be unique as multiple people need a user as null
     },
     facebookName: {
+      type: String
+      // required: true
+    },
+    phoneNumber: {
+      type: Number
+      // required: true
+    },
+    karmaPts: {
+      type: Number,
+      default: 10
+      // required: true
+    },
+    email: {
       type: String
       // required: true
     },
@@ -56,6 +69,8 @@ const userSchema = new Schema(
     timestamps: true
   }
 );
+
+// Ani: Where is the translation from User Facebook name to user String?
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

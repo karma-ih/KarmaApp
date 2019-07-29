@@ -15,7 +15,11 @@ import AddPosting from "./containers/AddPosting";
 import "bootstrap/dist/css/bootstrap.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapView from "./containers/MapView";
-export class App extends Component {
+import SimpleForm from "./components/chatbot/Chatbot";
+import EditProfile from "./containers/EditProfile";
+import ProfileView from "./containers/ProfileView";
+
+class App extends Component {
   state = {
     user: this.props.user
   };
@@ -50,6 +54,14 @@ export class App extends Component {
           />
           <Protected
             exact
+            path="/profile/edit"
+            redirectPath="/login"
+            setUser={this.setUser}
+            user={this.state.user}
+            component={EditProfile}
+          />
+          <Protected
+            exact
             path="/market"
             redirectPath="/login"
             user={this.state.user}
@@ -70,12 +82,19 @@ export class App extends Component {
           />
           <Protected
             exact
+            path="/profile"
+            user={this.state.user}
+            component={ProfileView}
+          />
+          <Protected
+            exact
             path="/map/"
             user={this.state.user}
             component={MapView}
           />
           <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>
+        {/* <SimpleForm> Hi </SimpleForm> */}
         <AppBar />
       </div>
     );

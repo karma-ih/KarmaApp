@@ -46,6 +46,7 @@ authRoutes.post("/signup", (req, res, next) => {
       });
     })
     .catch(err => {
+      console.log(err);
       res.status(500).json({ message: "Error at signup" });
     });
 });
@@ -77,6 +78,40 @@ authRoutes.post("/logout", (req, res, next) => {
 
 authRoutes.get("/loggedin", (req, res, next) => {
   res.json(req.user);
+});
+
+authRoutes.put("/editprofile", (req, res, next) => {
+  const {
+    username,
+    password,
+    email,
+    phoneNumber,
+    karmaPts,
+    street,
+    postalCode,
+    city,
+    country
+  } = req.body;
+
+  console.log(password);
+  User.findByIdAndUpdate(
+    req.user._id,
+    {
+      username,
+      password,
+      email,
+      phoneNumber,
+      karmaPts,
+      street,
+      postalCode,
+      city,
+      country
+    },
+    { new: true }
+  ).then(user => {
+    console.log(user);
+    res.json(user);
+  });
 });
 
 authRoutes.get("/facebook", passport.authenticate("facebook"));

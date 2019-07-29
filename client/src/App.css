@@ -81,3 +81,12 @@ nav > button {
   background-position: center;
   background-size: cover;
 }
+
+.fa-map-marker-alt {
+  color: black;
+  font-size: 1.2rem;
+}
+
+.mapbox-popup {
+  color: black !important;
+}

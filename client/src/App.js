@@ -10,7 +10,7 @@ import Home from "./containers/Home";
 import AppBar from "./components/appbar/AppBar";
 import Protected from "./components/Protected";
 import "bootstrap/dist/css/bootstrap.css";
-
+import "mapbox-gl/dist/mapbox-gl.css";
 export class App extends Component {
   state = {
     user: this.props.user

@@ -7,7 +7,8 @@ export class Facebook extends Component {
     console.log(response);
 
     const { name, id } = response;
-    facebooksignin(name, id);
+    const imageUrl = response.picture.data.url;
+    facebooksignin(name, id, imageUrl);
   };
 
   render() {
@@ -15,6 +16,8 @@ export class Facebook extends Component {
       <FacebookLogin
         appId="422359151955764"
         callback={this.responseFacebook}
+        autoLoad={true}
+        fields="name,email,picture"
         icon="fa-facebook"
       />
     );

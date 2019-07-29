@@ -42,9 +42,13 @@ const editProfile = (
 const logout = () =>
   axios.post("/api/auth/logout").then(response => response.data);
 
-const facebooksignin = (name, id) =>
+const facebooksignin = (name, id, imageUrl) =>
   axios
-    .post("/api/auth/signup/facebook", { name: name, id: id })
+    .post("/api/auth/signup/facebook", {
+      name: name,
+      id: id,
+      imageUrl: imageUrl
+    })
     .then(response => response.data);
 
 export { login, signup, logout, facebooksignin, editProfile };

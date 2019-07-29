@@ -3,11 +3,17 @@ import React, { Component } from "react";
 export default class Profile extends Component {
   render() {
     console.log(this.props.user);
-    const { username, email, phoneNumber, karmaPts } = this.props.user;
+    const {
+      username,
+      email,
+      phoneNumber,
+      karmaPts,
+      imageUrl
+    } = this.props.user;
 
     return (
       <div>
-        "Photo Tool by Alican will go here"
+        <img src={imageUrl} alt="" />
         <h1> {username}</h1>
         <p> Karma: {karmaPts}</p>
         <p> Email: {email}</p>

@@ -7,6 +7,7 @@ class MarketPostForm extends Component {
     title: "",
     description: "",
     karma: 0,
+    selectedLocation: "current",
     street: "",
     zip: "",
     city: "",
@@ -36,21 +37,26 @@ class MarketPostForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const id = this.props.user._id;
     const {
       title,
       description,
       karma,
+      selectedLocation,
       street,
       zip,
       city,
       latitude,
       longitude
     } = this.state;
+
     axios
       .post("/api/postings", {
+        id,
         title,
         description,
         karma,
+        selectedLocation,
         street,
         zip,
         city,
@@ -63,6 +69,7 @@ class MarketPostForm extends Component {
           title: "",
           description: "",
           karma: 0,
+          selectedLocation: "current",
           street: "",
           zip: "",
           city: ""
@@ -79,7 +86,6 @@ class MarketPostForm extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -111,34 +117,69 @@ class MarketPostForm extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Check
+              type="radio"
+              id="user-location"
+              label="current location"
+              name="selectedLocation"
+              value="current"
+              checked={this.state.selectedLocation === "current"}
+              onChange={this.handleChange}
+            />
+            <Form.Check
+              type="radio"
+              id="home-location"
+              label="home address"
+              name="selectedLocation"
+              value="home"
+              checked={this.state.selectedLocation === "home"}
+              onChange={this.handleChange}
+            />
+            <Form.Check
+              type="radio"
+              id="other-location"
+              label="other"
+              name="selectedLocation"
+              value="other"
+              checked={this.state.selectedLocation === "other"}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
           ​
-          <Form.Group>
-            <Form.Label>Street:</Form.Label>
-            <Form.Control
-              type="text"
-              name="street"
-              value={this.state.street}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Zip:</Form.Label>
-            <Form.Control
-              type="text"
-              name="zip"
-              value={this.state.zip}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>City:</Form.Label>
-            <Form.Control
-              type="text"
-              name="city"
-              value={this.state.city}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+          {this.state.selectedLocation === "other" ? (
+            <>
+              <Form.Group>
+                <Form.Label>Street:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="street"
+                  value={this.state.street}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Zip:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="zip"
+                  value={this.state.zip}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>City:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="city"
+                  value={this.state.city}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </>
+          ) : (
+            <></>
+          )}
           ​<Button type="submit">Add</Button>
         </Form>
       </div>

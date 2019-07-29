@@ -14,6 +14,7 @@ import Protected from "./components/Protected";
 import AddPosting from "./containers/AddPosting";
 import "bootstrap/dist/css/bootstrap.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Mapview from "./components/Map";
 export class App extends Component {
   state = {
     user: this.props.user
@@ -66,6 +67,12 @@ export class App extends Component {
             path="/market/:id"
             user={this.state.user}
             component={PostingDetails}
+          />
+          <Protected
+            exact
+            path="/map"
+            user={this.state.user}
+            component={Mapview}
           />
           <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>

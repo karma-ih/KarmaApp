@@ -6,9 +6,29 @@ const Posting = require("../models/Posting");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
-  const { title, description, karma, street, zip, city } = req.body;
+  const {
+    title,
+    description,
+    karma,
+    street,
+    zip,
+    city,
+    latitude,
+    longitude
+  } = req.body;
 
-  Posting.create({ title, description, karma, street, zip, city })
+  Posting.create({
+    title,
+    description,
+    karma,
+    street,
+    zip,
+    city,
+    location: {
+      type: "Point",
+      coordinates: [latitude, longitude]
+    }
+  })
     .then(response => {
       console.log(response);
       res.json(response);

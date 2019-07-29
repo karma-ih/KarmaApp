@@ -9,14 +9,54 @@ class MarketPostForm extends Component {
     karma: 0,
     street: "",
     zip: "",
-    city: ""
+    city: "",
+    latitude: 0,
+    longitude: 0
   };
+
+  componentDidMount() {
+    // const _locateUser = () => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
+    navigator.geolocation.getCurrentPosition(position => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log("_locateUser", latitude);
+      console.log("_locateUser", longitude);
+      this.setState({
+        latitude: latitude,
+        longitude: longitude
+      });
+    });
+  }
+
+  //   setTimeout(() => {
+  //     _locateUser();
+  //   }, 1000);
+  // }
 
   handleSubmit = event => {
     event.preventDefault();
-    const { title, description, karma, street, zip, city } = this.state;
+    const {
+      title,
+      description,
+      karma,
+      street,
+      zip,
+      city,
+      latitude,
+      longitude
+    } = this.state;
     axios
-      .post("/api/postings", { title, description, karma, street, zip, city })
+      .post("/api/postings", {
+        title,
+        description,
+        karma,
+        street,
+        zip,
+        city,
+        latitude,
+        longitude
+      })
       .then(response => {
         //   this.props.refreshList();
         this.setState({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
-import * as parkData from "../data/data.json";
+// import * as parkData from "../data/data.json";
 import axios from "axios";
 
 export default function Mapview() {
@@ -9,10 +9,11 @@ export default function Mapview() {
     longtitude: -75.6903,
     zoom: 10,
     width: "100vw",
-    height: "50vh"
+    height: "100vh"
   });
 
-  const [selectedPark, setSelectedPark] = useState(null);
+  // const [selectedPark, setSelectedPark] = useState(null);
+  const [markerElements, setMarkerElements] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,7 +35,7 @@ export default function Mapview() {
 
     const listener = e => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setMarker(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -44,12 +45,47 @@ export default function Mapview() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   axios.get("/api/tasks").then(res => {
-  //     const tasks = res.data;
-  //     console.log(tasks);
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios.get("/api/postings").then(res => {
+      const tasks = res.data;
+      console.log(tasks);
+
+      const markerElements = tasks.map((task, i) => (
+        <Marker
+          latitude={task.location.coordinates[0]}
+          longitude={task.location.coordinates[1]}
+          offsetLeft={-20}
+          offsetTop={-10}
+          key={i}
+        >
+          <div>You are here</div>
+          <Popup
+            latitude={task.location.coordinates[0]}
+            longitude={task.location.coordinates[1]}
+            onClose={e => {
+              setMarker(null);
+            }}
+          >
+            <div className="mapbox-popup">
+              <h2>{task.name}</h2>
+              <p>{task.description}</p>
+            </div>
+          </Popup>
+          <button
+            className="map-marker-button"
+            onClick={e => {
+              e.preventDefault();
+              setSelectedPark(task);
+            }}
+          >
+            <i className="fas fa-map-marker-alt" />
+          </button>
+        </Marker>
+      ));
+      setMarker(markerElements);
+      console.log(markerElements);
+    });
+  }, []);
 
   return (
     <div>
@@ -61,40 +97,11 @@ export default function Mapview() {
         }}
         mapStyle="mapbox://styles/alicantorun/cjyk4o8nx0ljn1cpj9cx1tacu"
       >
-        {parkData.features.map(park => (
-          <Marker
-            latitude={park.geometry.coordinates[1]}
-            longitude={park.geometry.coordinates[0]}
-            offsetLeft={-20}
-            offsetTop={-10}
-            key={park.properties.PARK_ID}
-          >
-            <button
-              className="map-marker-button"
-              onClick={e => {
-                e.preventDefault();
-                setSelectedPark(park);
-              }}
-            >
-              <i className="fas fa-map-marker-alt" />
-            </button>
-          </Marker>
-        ))}
+        {markerElements}
 
-        {selectedPark ? (
-          <Popup
-            latitude={selectedPark.geometry.coordinates[1]}
-            longitude={selectedPark.geometry.coordinates[0]}
-            onClose={e => {
-              setSelectedPark(null);
-            }}
-          >
-            <div className="mapbox-popup">
-              <h2>{selectedPark.properties.NAME}</h2>
-              <p>{selectedPark.properties.NAME}</p>
-            </div>
-          </Popup>
-        ) : null}
+        {/* {markerElements ? (
+          
+        ) : null} */}
         <GeolocateControl
           id="control-id"
           positionOptions={{ enableHighAccuracy: true }}

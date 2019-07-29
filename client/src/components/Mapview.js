@@ -44,12 +44,12 @@ export default function Mapview() {
     };
   }, []);
 
-  useEffect(() => {
-    axios.get("/api/tasks").then(res => {
-      const tasks = res.data;
-      console.log(tasks);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/api/tasks").then(res => {
+  //     const tasks = res.data;
+  //     console.log(tasks);
+  //   });
+  // }, []);
 
   return (
     <div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
-import * as parkData from "../data/data.json";
 import axios from "axios";
 import { Link } from "react-router-dom";
 

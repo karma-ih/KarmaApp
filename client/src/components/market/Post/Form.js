@@ -79,7 +79,6 @@ class MarketPostForm extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>

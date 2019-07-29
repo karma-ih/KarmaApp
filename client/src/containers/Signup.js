@@ -25,7 +25,7 @@ class Signup extends Component {
     signup(username, password)
       .then(data => {
         this.props.setUser(data);
-        this.props.history.push("/tasks");
+        this.props.history.push("/market");
       })
       .catch(err => {
         this.setState({ error: err.response.data.message });

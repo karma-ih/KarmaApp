@@ -6,12 +6,9 @@ const Posting = require("../models/Posting");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
-  console.log(req.body);
-  Posting.create({
-    title: req.body.title,
-    description: req.body.description,
-    creator: req.user._id
-  })
+  const { title, description, karma, street, zip, city } = req.body;
+
+  Posting.create({ title, description, karma, street, zip, city })
     .then(response => {
       console.log(response);
       res.json(response);
@@ -34,11 +31,13 @@ router.get("/", (req, res, next) => {
 
 //GET ROUTE FOR SPECIFIC Posting
 router.get("/:id", (req, res, next) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  const id = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: "specified ID is not valid" });
     return;
   }
-  Posting.findById(req.params.id)
+  Posting.findById(id)
     .then(response => {
       res.status(200).json(response);
     })
@@ -47,17 +46,19 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-//PUT ROUTE FOR SPECIFIC POSTING
+//PUT ROUTE FOR UPDATING A SPECIFIC POSTING
 router.put("/:id", (req, res, next) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  const { id, description } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;
   }
 
-  Posting.findByIdAndUpdate(req.params.id, req.body)
+  Posting.findByIdAndUpdate(id, { description })
     .then(() => {
       res.json({
-        message: `Posting with ${req.params.id} is updated successfully`
+        message: `Posting with ${id} is updated successfully`
       });
     })
     .catch(err => {
@@ -66,15 +67,17 @@ router.put("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  const id = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;
   }
 
-  Posting.findByIdAndRemove(req.params.id)
+  Posting.findByIdAndRemove(id)
     .then(() => {
       res.json({
-        message: `Posting with id ${req.params.id} is removed successfully`
+        message: `Posting with id ${id} is removed successfully`
       });
     })
     .catch(err => {

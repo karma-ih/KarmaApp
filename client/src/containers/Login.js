@@ -26,7 +26,7 @@ export default class Login extends Component {
     login(username, password)
       .then(data => {
         this.props.setUser(data);
-        this.props.history.push("/tasks");
+        this.props.history.push("/market");
       })
       .catch(err => {
         console.log(err);

@@ -23,11 +23,15 @@ const userSchema = new Schema(
     },
     address: {
       type: Object,
-      city: {
+      street: {
         type: String
         // required: true
       },
       postalCode: {
+        type: String
+        // required: true
+      },
+      city: {
         type: String
         // required: true
       },

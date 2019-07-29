@@ -6,9 +6,38 @@ const postingSchema = new Schema(
     title: String,
     description: String,
     creator: { type: Schema.Types.ObjectId, ref: "User" },
-    price: Number,
     otherParty: { type: Schema.Types.ObjectId, ref: "User" },
-    transcation: { type: Schema.Types.ObjectId, ref: "Transaction" },
+    price: Number,
+    address: {
+      type: Object,
+      street: {
+        type: String
+        // required: true
+      },
+      postalCode: {
+        type: String
+        // required: true
+      },
+      city: {
+        type: String
+        // required: true
+      },
+      country: {
+        type: String
+        // required: true
+      }
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point"
+      },
+      coordinates: {
+        type: [Number]
+        // required: true
+      }
+    },
     chat: [
       {
         message: String,
@@ -17,7 +46,8 @@ const postingSchema = new Schema(
           ref: "User"
         }
       }
-    ]
+    ],
+    transcation: { type: Schema.Types.ObjectId, ref: "Transaction" }
   },
   {
     timestamps: {
@@ -27,6 +57,6 @@ const postingSchema = new Schema(
   }
 );
 
-const Posting = mongoose.model("Task", postingSchema);
+const Posting = mongoose.model("Posting", postingSchema);
 
 module.exports = Posting;

@@ -29,10 +29,10 @@ class AppBar extends Component {
           <Link style={{ color: "white" }} to="/">
             <i className="fas footer-icons fa-home" />
           </Link>
-          <Link style={{ color: "white" }} to="/tasks">
+          <Link style={{ color: "white" }} to="/market">
             <i className="fas footer-icons fa-store" />
           </Link>
-          <Link style={{ color: "white" }} to="/">
+          <Link style={{ color: "white" }} to="/market/post">
             <i className="far footer-icons fa-plus-square" />
           </Link>
           <Link style={{ color: "white" }} to="/">

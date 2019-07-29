@@ -21,6 +21,6 @@ const transactionSchema = new Schema(
   }
 );
 
-const Posting = mongoose.model("Task", transactionSchema);
+const Transaction = mongoose.model("Transaction", transactionSchema);
 
-module.exports = Posting;
+module.exports = Transaction;

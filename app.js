@@ -86,10 +86,10 @@ app.locals.title = "KarmaApp";
 const index = require("./routes/index");
 app.use("/", index);
 
-const taskRoutes = require("./routes/task-routes");
-app.use("/api/tasks", taskRoutes);
+const postings = require("./routes/postings");
+app.use("/api/postings", postings);
 
-const authRoutes = require("./routes/auth-routes");
-app.use("/api/auth", authRoutes);
+const auth = require("./routes/auth");
+app.use("/api/auth", auth);
 
 module.exports = app;

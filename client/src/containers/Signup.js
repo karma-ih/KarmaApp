@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { signup } from "../services/api";
 import Facebook from "../components/Facebook";
+import CloudinaryWidget from "../components/CloudinaryWidget";
 
 class Signup extends Component {
   state = {
     username: "",
     password: "",
-    error: ""
+    error: "",
+    imageUrl: ""
   };
 
   handleChange = event => {
@@ -30,6 +32,10 @@ class Signup extends Component {
       .catch(err => {
         this.setState({ error: err.response.data.message });
       });
+  };
+
+  handleCloudinary = event => {
+    this.setState({ imageUrl: event });
   };
 
   render() {
@@ -64,6 +70,7 @@ class Signup extends Component {
           <Button type="submit">Signup</Button>
         </Form>
         <Facebook />
+        <CloudinaryWidget handleCloudinary={this.handleCloudinary} />
       </React.Fragment>
     );
   }

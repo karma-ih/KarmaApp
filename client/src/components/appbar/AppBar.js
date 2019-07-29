@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 var style = {
-  backgroundColor: "#000",
+  backgroundColor: "rgba(0, 0, 0, 1)",
   color: "white",
-  borderTop: "1px solid #E7E7E7",
+  borderTop: "2px solid #E7E7E7",
   textAlign: "center",
   padding: "20px",
   position: "fixed",
   left: "0",
   bottom: "0",
   height: "60px",
-  width: "100%"
+  width: "100%",
+  zIndex: "99"
 };
 
 var phantom = {
@@ -38,7 +39,7 @@ class AppBar extends Component {
           <Link style={{ color: "white" }} to="/map">
             <i className="fas footer-icons fa-map" />
           </Link>
-          <Link style={{ color: "white" }} to="/">
+          <Link style={{ color: "white" }} to="/profile">
             <i className="fas footer-icons fa-user" />
           </Link>
         </div>

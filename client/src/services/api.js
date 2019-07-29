@@ -5,9 +5,38 @@ const login = (username, password) =>
     .post("/api/auth/login", { username: username, password: password })
     .then(response => response.data);
 
-const signup = (username, password) =>
+const signup = (username, password, imageUrl) =>
   axios
-    .post("/api/auth/signup", { username: username, password: password })
+    .post("/api/auth/signup", {
+      username: username,
+      password: password,
+      imageUrl: imageUrl
+    })
+    .then(response => response.data);
+
+const editProfile = (
+  username,
+  password,
+  email,
+  phoneNumber,
+  karmaPts,
+  street,
+  postalCode,
+  city,
+  country
+) =>
+  axios
+    .put("/api/auth/editprofile", {
+      username,
+      password,
+      email,
+      phoneNumber,
+      karmaPts,
+      street,
+      postalCode,
+      city,
+      country
+    })
     .then(response => response.data);
 
 const logout = () =>
@@ -18,4 +47,4 @@ const facebooksignin = (name, id) =>
     .post("/api/auth/signup/facebook", { name: name, id: id })
     .then(response => response.data);
 
-export { login, signup, logout, facebooksignin };
+export { login, signup, logout, facebooksignin, editProfile };

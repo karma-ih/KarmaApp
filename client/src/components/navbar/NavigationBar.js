@@ -11,7 +11,9 @@ const handleLogout = props => {
 
 const NavigationBar = props => {
   return (
-    <Navbar style={{ backgroundColor: "#000" }}>
+    <Navbar
+      style={{ backgroundColor: "#000", borderBottom: "2px solid #E7E7E7" }}
+    >
       <Link to="/" style={{ textDecoration: "none" }}>
         <Navbar.Brand>
           <img
@@ -28,21 +30,20 @@ const NavigationBar = props => {
           <NavDropdown className="ml-auto main-navbar" title="Logout">
             <NavDropdown.Item
               onClick={() => handleLogout(props)}
-              href="/"
               className="nav-dropdown"
             >
-              Logout
+              <Link to="/">Logout</Link>
             </NavDropdown.Item>
           </NavDropdown>
         </>
       ) : (
         <>
           <NavDropdown className="ml-auto main-navbar" title="Login/Signup">
-            <NavDropdown.Item href="/login" className="nav-dropdown">
-              Login
+            <NavDropdown.Item className="nav-dropdown">
+              <Link to="/login">Login</Link>
             </NavDropdown.Item>
-            <NavDropdown.Item href="/signup" className="nav-dropdown">
-              Signup
+            <NavDropdown.Item className="nav-dropdown">
+              <Link to="/signup">Signup</Link>
             </NavDropdown.Item>
           </NavDropdown>
         </>

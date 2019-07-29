@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup, GeolocateControl } from "react-map-gl";
-import * as parkData from "../data/data.json";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Mapview() {
   const [viewport, setViewport] = useState({
@@ -12,8 +12,9 @@ export default function Mapview() {
     height: "50vh"
   });
 
-  const [selectedPark, setSelectedPark] = useState(null);
-  const [markerElements, setMarker] = useState();
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const [taskData, setTaskData] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,7 +36,7 @@ export default function Mapview() {
 
     const listener = e => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setSelectedTask(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -47,22 +48,23 @@ export default function Mapview() {
 
   useEffect(() => {
     axios.get("/api/postings").then(res => {
-      const tasks = res.data;
-      console.log(tasks);
+      const taskData = res.data;
+      setTaskData(taskData);
+      console.log("task data", taskData);
 
-      const markerElements = tasks.map((task, i) => (
-        <Marker
-          latitude={task.location.coordinates[0]}
-          longitude={task.location.coordinates[1]}
-          offsetLeft={-20}
-          offsetTop={-10}
-          key={i}
-        >
-          <div>You are here</div>
-        </Marker>
-      ));
-      setMarker(markerElements);
-      console.log(markerElements);
+      // const markerElements = tasks.map((task, i) => (
+      //   <Marker
+      //     latitude={task.location.coordinates[0]}
+      //     longitude={task.location.coordinates[1]}
+      //     offsetLeft={-20}
+      //     offsetTop={-10}
+      //     key={i}
+      //   >
+      //     <div>You are here</div>
+      //   </Marker>
+      // ));
+      // setMarker(markerElements);
+      // console.log(markerElements);
     });
   }, []);
 
@@ -76,19 +78,40 @@ export default function Mapview() {
         }}
         mapStyle="mapbox://styles/alicantorun/cjyk4o8nx0ljn1cpj9cx1tacu"
       >
-        {markerElements}
+        {/* {markerElements} */}
 
-        {selectedPark ? (
+        {taskData.map((task, i) => (
+          <Marker
+            latitude={task.location.coordinates[0]}
+            longitude={task.location.coordinates[1]}
+            offsetLeft={-20}
+            offsetTop={-10}
+            key={i}
+          >
+            <button
+              className="map-marker-button"
+              onClick={e => {
+                e.preventDefault();
+                setSelectedTask(task);
+              }}
+            >
+              <i className="fas fa-map-marker-alt" />
+            </button>
+          </Marker>
+        ))}
+
+        {selectedTask ? (
           <Popup
-            latitude={selectedPark.geometry.coordinates[1]}
-            longitude={selectedPark.geometry.coordinates[0]}
+            latitude={selectedTask.location.coordinates[0]}
+            longitude={selectedTask.location.coordinates[1]}
             onClose={e => {
-              setSelectedPark(null);
+              setSelectedTask(null);
             }}
           >
             <div className="mapbox-popup">
-              <h2>{selectedPark.properties.NAME}</h2>
-              <p>{selectedPark.properties.NAME}</p>
+              <h2>{selectedTask.title}</h2>
+              <p>{selectedTask.description}</p>
+              <Link to={`/market/${selectedTask._id}`}>GO</Link>
             </div>
           </Popup>
         ) : null}

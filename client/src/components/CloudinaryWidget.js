@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 
 const CloudinaryWidget = props => {
   const [imageUrl, setImageUrl] = useState("");
@@ -30,7 +31,9 @@ const CloudinaryWidget = props => {
 
   return (
     <div id="photo-form-container">
-      <button onClick={myWidget.open}>Upload Photo</button>
+      <Button variant="dark" onClick={myWidget.open}>
+        Upload Photo
+      </Button>
     </div>
   );
 };

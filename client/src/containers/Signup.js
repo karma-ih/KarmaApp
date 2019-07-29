@@ -21,10 +21,10 @@ class Signup extends Component {
   };
 
   handleSubmit = event => {
-    const { username, password } = this.state;
+    const { username, password, imageUrl } = this.state;
     event.preventDefault();
 
-    signup(username, password)
+    signup(username, password, imageUrl)
       .then(data => {
         this.props.setUser(data);
         this.props.history.push("/market");

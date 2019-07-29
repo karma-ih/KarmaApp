@@ -5,9 +5,13 @@ const login = (username, password) =>
     .post("/api/auth/login", { username: username, password: password })
     .then(response => response.data);
 
-const signup = (username, password) =>
+const signup = (username, password, imageUrl) =>
   axios
-    .post("/api/auth/signup", { username: username, password: password })
+    .post("/api/auth/signup", {
+      username: username,
+      password: password,
+      imageUrl: imageUrl
+    })
     .then(response => response.data);
 
 const logout = () =>

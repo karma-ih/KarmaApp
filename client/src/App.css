@@ -1,3 +1,33 @@
+h2 {
+  color: black;
+}
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.scrolling-wrapper-flexbox .card {
+  flex: 0 0 auto;
+  margin-right: 3px;
+}
+.card {
+  border: 2px solid black;
+  width: 250px;
+  height: 125px;
+  background: black;
+}
+.scrolling-wrapper-flexbox {
+  height: 150px;
+  margin-bottom: 20px;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.scrolling-wrapper-flexbox::-webkit-scrollbar {
+  display: none;
+}
+
+/*MARKETPLACECAROUSEL*/
 .App {
   text-align: center;
 }

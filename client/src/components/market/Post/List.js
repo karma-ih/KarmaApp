@@ -2,15 +2,26 @@ import React from "react";
 import MarketPostBox from "./Box";
 
 const MarketPostList = props => {
-  console.log(props);
-  return (
-    <div>
-      {props.postings.length > 0 && <h2>Marketplace:</h2>}
+  console.log(props.search);
 
-      {props.postings.map(posting => {
-        return <MarketPostBox posting={posting} key={posting._id} />;
-      })}
-    </div>
+  return (
+    <>
+      {/* {props.postings.length > 0 && <h2>Marketplace:</h2>} */}
+
+      {props.postings
+        .filter(posting =>
+          posting.description.toLowerCase().includes(props.search.toLowerCase())
+        )
+        .map(posting => {
+          return (
+            <MarketPostBox
+              className={props.className}
+              posting={posting}
+              key={posting._id}
+            />
+          );
+        })}
+    </>
   );
 };
 

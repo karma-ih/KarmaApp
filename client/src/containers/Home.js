@@ -1,6 +1,7 @@
 import React from "react";
 import LandingCarousel from "../components/landing/LandingCarousel";
 import SimpleForm from "../components/chatbot/Chatbot";
+import MarketPlaceCarousel from "../components/landing/MarketPlaceCarousel";
 
 const Home = () => {
   return (
@@ -21,7 +22,7 @@ const Home = () => {
       <div>
         <LandingCarousel />
       </div>
-      {/* <SimpleForm> Hi </SimpleForm> */}
+      {/* <MarketPlaceCarousel /> */}
     </div>
   );
 };

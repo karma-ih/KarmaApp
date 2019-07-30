@@ -2,12 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MarketPostBox = props => {
-  const { title, karma, _id } = props.posting;
+  const { title, karma, _id, description } = props.posting;
   return (
-    <div>
+    <div className={props.className}>
       <Link to={`/market/${_id}`}>
-        {title} {karma}
+        <h5>{title}</h5>
       </Link>
+      <span style={{ color: "orange" }}>Karma: {karma}</span>
+      <p>{description}</p>
     </div>
   );
 };

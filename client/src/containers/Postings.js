@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import MarketPostList from "../components/market/Post/List";
+import SearchBar from "../components/market/Post/SearchBar";
 
 class Postings extends Component {
   state = {
-    postings: []
+    postings: [],
+    searchInput: ""
   };
 
   getData = () => {
@@ -24,11 +26,60 @@ class Postings extends Component {
     this.getData();
   }
 
+  onSearchChange = (name, value) => {
+    this.setState({
+      [name]: value
+    });
+
+    const { searchInput } = this.state;
+    let filteredPostings = [...this.state.postings];
+    filteredPostings = filteredPostings.filter(posting => {
+      return posting.title.toLowerCase().includes(searchInput.toLowerCase());
+    });
+
+    this.setState({
+      search: value
+    });
+    console.log(filteredPostings);
+  };
+
+  sortByName = () => {
+    const postingsCopy = [...this.state.postings];
+    const sortedPostings = postingsCopy.sort(function(a, b) {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({ postings: sortedPostings });
+  };
+
+  sortByKarma = () => {
+    const postingsCopy = [...this.state.postings];
+    const sortedPostings = postingsCopy.sort((a, b) => b.karma - a.karma);
+    this.setState({ postings: sortedPostings });
+  };
+
   render() {
     return (
       <div>
         {this.state.postings.length ? (
-          <MarketPostList postings={this.state.postings} />
+          <div>
+            <SearchBar
+              onSearchChange={this.onSearchChange}
+              searchInput={this.state.searchInput}
+              checked={this.state.checked}
+              sortByName={this.sortByName}
+              sortByKarma={this.sortByKarma}
+            />
+            <MarketPostList
+              search={this.state.searchInput}
+              postings={this.state.postings}
+            />
+          </div>
         ) : (
           <h1>There are no postings in your area</h1>
         )}

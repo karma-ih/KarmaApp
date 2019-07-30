@@ -31,25 +31,23 @@ const signup = (
     .then(response => response.data);
 
 const editProfile = (
-  username,
-  password,
   email,
   phoneNumber,
   street,
   postalCode,
   city,
-  country
+  country,
+  imageUrl
 ) =>
   axios
     .put("/api/auth/editprofile", {
-      username,
-      password,
       email,
       phoneNumber,
       street,
       postalCode,
       city,
-      country
+      country,
+      imageUrl
     })
     .then(response => response.data);
 

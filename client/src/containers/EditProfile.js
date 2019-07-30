@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { editProfile } from "../services/api";
 import { Form, Button, Alert } from "react-bootstrap";
+import CloudinaryWidget from "../components/CloudinaryWidget";
 
 class EditProfile extends Component {
   state = {
@@ -10,6 +11,7 @@ class EditProfile extends Component {
     postalCode: this.props.user.address.postalCode,
     city: this.props.user.address.city,
     country: this.props.user.address.country,
+    imageUrl: this.props.user.imageUrl,
     error: ""
   };
 
@@ -28,7 +30,8 @@ class EditProfile extends Component {
       street,
       postalCode,
       city,
-      country
+      country,
+      imageUrl
     } = this.state;
 
     event.preventDefault();
@@ -39,7 +42,15 @@ class EditProfile extends Component {
     }
 
     if (validateEmail(email)) {
-      editProfile(email, phoneNumber, street, postalCode, city, country)
+      editProfile(
+        email,
+        phoneNumber,
+        street,
+        postalCode,
+        city,
+        country,
+        imageUrl
+      )
         .then(data => {
           this.props.setUser(data);
           this.props.history.push("/profile");
@@ -51,9 +62,15 @@ class EditProfile extends Component {
     }
   };
 
+  handleCloudinary = event => {
+    this.setState({ imageUrl: event });
+  };
+
   render() {
+    console.log(this.state.imageUrl);
     return (
       <React.Fragment>
+        <CloudinaryWidget handleCloudinary={this.handleCloudinary} />
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="email">Email:</Form.Label>

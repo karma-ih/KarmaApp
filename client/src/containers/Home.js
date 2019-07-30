@@ -22,7 +22,7 @@ const Home = () => {
       <div>
         <LandingCarousel />
       </div>
-      {/* <MarketPlaceCarousel /> */}
+      <MarketPlaceCarousel />
     </div>
   );
 };

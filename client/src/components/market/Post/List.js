@@ -8,19 +8,31 @@ const MarketPostList = props => {
     <>
       {/* {props.postings.length > 0 && <h2>Marketplace:</h2>} */}
 
-      {props.postings
-        .filter(posting =>
-          posting.description.toLowerCase().includes(props.search.toLowerCase())
-        )
-        .map(posting => {
-          return (
-            <MarketPostBox
-              className={props.className}
-              posting={posting}
-              key={posting._id}
-            />
-          );
-        })}
+      {props.search
+        ? props.postings
+            .filter(posting =>
+              posting.description
+                .toLowerCase()
+                .includes(props.search.toLowerCase())
+            )
+            .map(posting => {
+              return (
+                <MarketPostBox
+                  className={props.className}
+                  posting={posting}
+                  key={posting._id}
+                />
+              );
+            })
+        : props.postings.map(posting => {
+            return (
+              <MarketPostBox
+                className={props.className}
+                posting={posting}
+                key={posting._id}
+              />
+            );
+          })}
     </>
   );
 };

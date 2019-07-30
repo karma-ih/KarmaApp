@@ -100,7 +100,15 @@ authRoutes.get("/loggedin", (req, res, next) => {
 });
 
 authRoutes.put("/editprofile", (req, res, next) => {
-  const { email, phoneNumber, street, postalCode, city, country } = req.body;
+  const {
+    email,
+    phoneNumber,
+    street,
+    postalCode,
+    city,
+    country,
+    imageUrl
+  } = req.body;
 
   User.findByIdAndUpdate(
     req.user._id,
@@ -112,7 +120,8 @@ authRoutes.put("/editprofile", (req, res, next) => {
         postalCode,
         city,
         country
-      }
+      },
+      imageUrl
     },
     { new: true }
   ).then(user => {

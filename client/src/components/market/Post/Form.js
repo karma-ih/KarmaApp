@@ -12,7 +12,8 @@ class MarketPostForm extends Component {
     zip: "",
     city: "",
     latitude: 0,
-    longitude: 0
+    longitude: 0,
+    message: []
   };
 
   componentDidMount() {

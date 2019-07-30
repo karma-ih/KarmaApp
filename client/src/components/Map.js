@@ -9,7 +9,7 @@ export default function Mapview() {
     longtitude: -75.6903,
     zoom: 10,
     width: "100vw",
-    height: "50vh"
+    height: "100vh"
   });
 
   const [selectedTask, setSelectedTask] = useState(null);

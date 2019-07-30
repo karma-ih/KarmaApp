@@ -145,6 +145,20 @@ router.post("/", (req, res, next) => {
   }
 });
 
+router.post("/:id/message", (req, res, next) => {
+  console.log(req.user._id);
+  console.log(req.params.id);
+  Posting.findByIdAndUpdate(req.params.id, {
+    $push: { message: { message: req.body.message, user: req.user._id } }
+  })
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 //GET ROUTE FOR POSTINGS
 router.get("/", (req, res, next) => {
   Posting.find()
@@ -165,6 +179,13 @@ router.get("/:id", (req, res, next) => {
     return;
   }
   Posting.findById(id)
+    .populate([
+      { path: "creator", model: "User" },
+      {
+        path: "message.user",
+        model: "User"
+      }
+    ])
     .then(response => {
       res.status(200).json(response);
     })

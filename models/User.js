@@ -29,7 +29,7 @@ const userSchema = new Schema(
     },
     karma: {
       type: Number,
-      default: 10
+      default: 100
       // required: true
       // Dominik: let's make it a number format of 6.2534 (maximum 4 comma places)?
     },

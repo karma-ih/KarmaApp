@@ -34,7 +34,7 @@ const postingSchema = new Schema(
         // required: true
       }
     },
-    chat: [
+    message: [
       {
         message: String,
         user: {

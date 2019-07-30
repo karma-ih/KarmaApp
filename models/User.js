@@ -8,9 +8,6 @@ const userSchema = new Schema(
       // required: true,
       // unique: true
     },
-    imageUrl: {
-      type: String
-    },
     password: {
       type: String
       // minlength: 8
@@ -18,20 +15,23 @@ const userSchema = new Schema(
     facebookId: {
       type: String
       // required: true,
-      // unique: true // Anih: Cannot be unique as multiple people need a user as null
+      // unique: true // Anih: Cannot be unique as multiple people need a user as null // Dominik: Is that so? I would assume facebook has unique ids in their database?
+      // just for us (signup with facebook)
     },
     facebookName: {
       type: String
       // required: true
+      // just for us (signup with facebook)
     },
     phoneNumber: {
       type: Number
       // required: true
     },
-    karmaPts: {
+    karma: {
       type: Number,
       default: 10
       // required: true
+      // Dominik: let's make it a number format of 6.2534 (maximum 4 comma places)?
     },
     email: {
       type: String
@@ -64,8 +64,10 @@ const userSchema = new Schema(
       },
       coordinates: {
         type: [Number]
-        // required: true
       }
+    },
+    imageUrl: {
+      type: String
     }
   },
   {

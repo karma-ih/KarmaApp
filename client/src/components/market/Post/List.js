@@ -1,8 +1,5 @@
 import React from "react";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
 import MarketPostBox from "./Box";
-// import AddTask from "./Form";
 
 const MarketPostList = props => {
   console.log(props);
@@ -11,16 +8,7 @@ const MarketPostList = props => {
       {props.postings.length > 0 && <h2>Marketplace:</h2>}
 
       {props.postings.map(posting => {
-        return (
-          // <Link to={`/market/${posting._id}`}>
-          <MarketPostBox posting={posting} key={posting._id} />
-          // </Link>
-          // <div key={posting._id}>
-          //   <Link to={`/postings/${posting._id}`}>
-          //     <h3>{posting.title}</h3>
-          //   </Link>
-          // </div>
-        );
+        return <MarketPostBox posting={posting} key={posting._id} />;
       })}
     </div>
   );

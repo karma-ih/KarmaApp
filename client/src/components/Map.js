@@ -116,6 +116,7 @@ export default function Mapview() {
           </Popup>
         ) : null}
         <GeolocateControl
+          style={{ display: "none" }}
           id="control-id"
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}

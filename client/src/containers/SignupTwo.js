@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { editProfile } from "../services/api";
 import { Form, Button, Alert } from "react-bootstrap";
+import CloudinaryWidget from "../components/CloudinaryWidget";
+import { signup } from "../services/api";
 
-class EditProfile extends Component {
+class SignupInfo extends Component {
   state = {
-    email: this.props.user.email,
-    phoneNumber: this.props.user.phoneNumber,
-    street: this.props.user.address.street,
-    postalCode: this.props.user.address.postalCode,
-    city: this.props.user.address.city,
-    country: this.props.user.address.country,
+    email: "",
+    phoneNumber: "",
+    street: "",
+    postalCode: "",
+    city: "",
+    country: "",
+    imageUrl: "",
     error: ""
   };
 
@@ -22,13 +24,16 @@ class EditProfile extends Component {
   };
 
   handleSubmit = event => {
+    const { username, password } = this.props.location.data;
+
     const {
       email,
       phoneNumber,
       street,
       postalCode,
       city,
-      country
+      country,
+      imageUrl
     } = this.state;
 
     event.preventDefault();
@@ -39,19 +44,33 @@ class EditProfile extends Component {
     }
 
     if (validateEmail(email)) {
-      editProfile(email, phoneNumber, street, postalCode, city, country)
+      signup(
+        username,
+        password,
+        email,
+        phoneNumber,
+        street,
+        postalCode,
+        city,
+        country,
+        imageUrl
+      )
         .then(data => {
           this.props.setUser(data);
-          this.props.history.push("/profile");
+          this.props.history.push("/market");
         })
         .catch(err => {
-          console.log(err);
           this.setState({ error: err.response.data.message });
         });
     }
   };
 
+  handleCloudinary = event => {
+    this.setState({ imageUrl: event });
+  };
+
   render() {
+    console.log(this.props.location);
     return (
       <React.Fragment>
         <Form onSubmit={this.handleSubmit}>
@@ -127,12 +146,13 @@ class EditProfile extends Component {
 
           <Button type="submit">Save Changes</Button>
         </Form>
+        <CloudinaryWidget handleCloudinary={this.handleCloudinary} />
       </React.Fragment>
     );
   }
 }
 
-export default EditProfile;
+export default SignupInfo;
 
 // What is this regex for @AJ ? Do we still need this or can it be deleted? (Dominik asking)
 

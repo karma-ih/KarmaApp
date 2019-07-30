@@ -21,19 +21,14 @@ class MarketPostForm extends Component {
     navigator.geolocation.getCurrentPosition(position => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
-      console.log("_locateUser", latitude);
-      console.log("_locateUser", longitude);
+      // console.log("_locateUser", latitude);
+      // console.log("_locateUser", longitude);
       this.setState({
         latitude: latitude,
         longitude: longitude
       });
     });
   }
-
-  //   setTimeout(() => {
-  //     _locateUser();
-  //   }, 1000);
-  // }
 
   handleSubmit = event => {
     event.preventDefault();

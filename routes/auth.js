@@ -7,7 +7,17 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 authRoutes.post("/signup", (req, res, next) => {
-  const { username, password, imageUrl } = req.body;
+  const {
+    username,
+    password,
+    email,
+    phoneNumber,
+    street,
+    postalCode,
+    city,
+    country,
+    imageUrl
+  } = req.body;
 
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -33,6 +43,14 @@ authRoutes.post("/signup", (req, res, next) => {
       return User.create({
         username,
         password: hashPass,
+        email,
+        phoneNumber,
+        address: {
+          street,
+          postalCode,
+          city,
+          country
+        },
         imageUrl
       }).then(newUser => {
         req.login(newUser, err => {
@@ -82,31 +100,19 @@ authRoutes.get("/loggedin", (req, res, next) => {
 });
 
 authRoutes.put("/editprofile", (req, res, next) => {
-  const {
-    username,
-    password,
-    email,
-    phoneNumber,
-    karmaPts,
-    street,
-    postalCode,
-    city,
-    country
-  } = req.body;
+  const { email, phoneNumber, street, postalCode, city, country } = req.body;
 
-  console.log(password);
   User.findByIdAndUpdate(
     req.user._id,
     {
-      username,
-      password,
       email,
       phoneNumber,
-      karmaPts,
-      street,
-      postalCode,
-      city,
-      country
+      address: {
+        street,
+        postalCode,
+        city,
+        country
+      }
     },
     { new: true }
   ).then(user => {
@@ -114,6 +120,8 @@ authRoutes.put("/editprofile", (req, res, next) => {
     res.json(user);
   });
 });
+
+// Dominik: Why are there three facebook routes @Alican?
 
 authRoutes.get("/facebook", passport.authenticate("facebook"));
 

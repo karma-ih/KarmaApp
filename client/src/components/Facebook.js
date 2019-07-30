@@ -16,7 +16,7 @@ export class Facebook extends Component {
       <FacebookLogin
         appId="422359151955764"
         callback={this.responseFacebook}
-        autoLoad={true}
+        // autoLoad={true}
         fields="name,email,picture"
         icon="fa-facebook"
       />

@@ -1,31 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default class Profile extends Component {
-  render() {
-    console.log(this.props.user);
-    const {
-      username,
-      email,
-      phoneNumber,
-      karmaPts,
-      imageUrl
-    } = this.props.user;
+const Profile = props => {
+  console.log(props.user);
+  const { email, phoneNumber, imageUrl } = props.user;
+  const { street, city, postalCode, country } = props.user.address;
+  return (
+    <>
+      <img src={imageUrl} alt="user image" />
+      <p> Email: {email}</p>
+      <p> Tel.: {phoneNumber}</p>
+      <h2>Address:</h2>
+      <p>Street:{street}</p>
+      <p>City: {city}</p>
+      <p>Zip: {postalCode}</p>
+      <p>Country: {country}</p>
+      <Link to="/profile/edit">
+        <Button>Edit User Information</Button>
+      </Link>
+    </>
+  );
+};
 
-    return (
-      <div>
-        <img src={imageUrl} alt="" />
-        <h1> {username}</h1>
-        <p> Karma: {karmaPts}</p>
-        <p> Email: {email}</p>
-        <p> Tel. {phoneNumber}</p>
-        {/* <p> Street: {street}</p>
-        <p> City: {city}</p>
-        <p> Country: {country}</p>
-        <p> Postal Code: {postalCode}</p> */}
-        <button type="submit" href="/EditProfile">
-          "Edit Profile"
-        </button>
-      </div>
-    );
-  }
-}
+export default Profile;

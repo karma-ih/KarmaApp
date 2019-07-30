@@ -5,12 +5,28 @@ const login = (username, password) =>
     .post("/api/auth/login", { username: username, password: password })
     .then(response => response.data);
 
-const signup = (username, password, imageUrl) =>
+const signup = (
+  username,
+  password,
+  email,
+  phoneNumber,
+  street,
+  postalCode,
+  city,
+  country,
+  imageUrl
+) =>
   axios
     .post("/api/auth/signup", {
-      username: username,
-      password: password,
-      imageUrl: imageUrl
+      username,
+      password,
+      email,
+      phoneNumber,
+      street,
+      postalCode,
+      city,
+      country,
+      imageUrl
     })
     .then(response => response.data);
 
@@ -19,7 +35,6 @@ const editProfile = (
   password,
   email,
   phoneNumber,
-  karmaPts,
   street,
   postalCode,
   city,
@@ -31,7 +46,6 @@ const editProfile = (
       password,
       email,
       phoneNumber,
-      karmaPts,
       street,
       postalCode,
       city,

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+
 var style = {
   backgroundColor: "rgba(0, 0, 0, 1)",
   color: "white",
@@ -21,31 +22,29 @@ var phantom = {
   width: "100%"
 };
 
-class AppBar extends Component {
-  render() {
-    return (
-      <div>
-        <div style={phantom} />
-        <div className="footer-icons-wrapper" style={style}>
-          <Link style={{ color: "white" }} to="/">
-            <i className="fas footer-icons fa-home" />
-          </Link>
-          <Link style={{ color: "white" }} to="/market">
-            <i className="fas footer-icons fa-store" />
-          </Link>
-          <Link style={{ color: "white" }} to="/market/post">
-            <i className="far footer-icons fa-plus-square" />
-          </Link>
-          <Link style={{ color: "white" }} to="/map">
-            <i className="fas footer-icons fa-map" />
-          </Link>
-          <Link style={{ color: "white" }} to="/profile">
-            <i className="fas footer-icons fa-user" />
-          </Link>
-        </div>
+const AppBar = () => {
+  return (
+    <div>
+      <div style={phantom} />
+      <div className="footer-icons-wrapper" style={style}>
+        <Link style={{ color: "white" }} to="/">
+          <i className="fas footer-icons fa-home" />
+        </Link>
+        <Link style={{ color: "white" }} to="/market">
+          <i className="fas footer-icons fa-store" />
+        </Link>
+        <Link style={{ color: "white" }} to="/market/post">
+          <i className="far footer-icons fa-plus-square" />
+        </Link>
+        <Link style={{ color: "white" }} to="/map">
+          <i className="fas footer-icons fa-map" />
+        </Link>
+        <Link style={{ color: "white" }} to="/profile">
+          <i className="fas footer-icons fa-user" />
+        </Link>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default AppBar;

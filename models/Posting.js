@@ -7,7 +7,7 @@ const postingSchema = new Schema(
     description: String,
     creator: { type: Schema.Types.ObjectId, ref: "User" },
     otherParty: { type: Schema.Types.ObjectId, ref: "User" },
-    price: Number,
+    karma: Number,
     address: {
       type: Object,
       street: {
@@ -19,10 +19,6 @@ const postingSchema = new Schema(
         // required: true
       },
       city: {
-        type: String
-        // required: true
-      },
-      country: {
         type: String
         // required: true
       }

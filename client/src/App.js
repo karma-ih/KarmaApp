@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./App.css";
 import { Switch, Route } from "react-router-dom";
-// import TaskList from "./components/market/Post/PostingsList";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 import NavigationBar from "./components/navbar/NavigationBar";
-// import TaskDetail from "./components/market/Post/Details";
 import PostingDetails from "./containers/PostingDetails";
 import Postings from "./containers/Postings";
 import Signup from "./containers/Signup";
@@ -12,12 +12,10 @@ import Home from "./containers/Home";
 import AppBar from "./components/appbar/AppBar";
 import Protected from "./components/Protected";
 import AddPosting from "./containers/AddPosting";
-import "bootstrap/dist/css/bootstrap.css";
-import "mapbox-gl/dist/mapbox-gl.css";
 import MapView from "./containers/MapView";
-import SimpleForm from "./components/chatbot/Chatbot";
 import EditProfile from "./containers/EditProfile";
 import ProfileView from "./containers/ProfileView";
+import SignupInfo from "./containers/SignupTwo";
 
 class App extends Component {
   state = {
@@ -40,9 +38,16 @@ class App extends Component {
             exact
             path="/signup"
             redirectPath="/market"
-            setUser={this.setUser}
             user={!this.state.user}
             component={Signup}
+          />
+          <Protected
+            exact
+            path="/signup/info"
+            redirectPath="/market"
+            setUser={this.setUser}
+            user={!this.state.user}
+            component={SignupInfo}
           />
           <Protected
             exact
@@ -94,7 +99,6 @@ class App extends Component {
           />
           <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>
-        {/* <SimpleForm> Hi </SimpleForm> */}
         <AppBar />
       </div>
     );

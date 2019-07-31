@@ -75,10 +75,13 @@ class Postings extends Component {
               sortByName={this.sortByName}
               sortByKarma={this.sortByKarma}
             />
-            <MarketPostList
-              search={this.state.searchInput}
-              postings={this.state.postings}
-            />
+            <div className="scrolling-wrapper-flexbox">
+              <MarketPostList
+                search={this.state.searchInput}
+                postings={this.state.postings}
+                className="card"
+              />
+            </div>
           </div>
         ) : (
           <h1>There are no postings in your area</h1>

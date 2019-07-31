@@ -52,12 +52,16 @@ class Profile extends React.Component {
           <Button onClick={this.applyPosting}>Apply</Button>
         )} */}
         <div>CREATOR</div>
-        <MarketPostList className="card" postings={this.state.postings} />
+        <div className="scrolling-wrapper-flexbox">
+          <MarketPostList className="card" postings={this.state.postings} />
+        </div>
         <div>APPLICANT</div>
-        <MarketPostList
-          className="card"
-          postings={this.state.postings_applicant}
-        />
+        <div className="scrolling-wrapper-flexbox">
+          <MarketPostList
+            className="card"
+            postings={this.state.postings_applicant}
+          />
+        </div>
       </>
     );
   }

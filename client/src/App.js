@@ -16,6 +16,7 @@ import MapView from "./containers/MapView";
 import EditProfile from "./containers/EditProfile";
 import ProfileView from "./containers/ProfileView";
 import SignupInfo from "./containers/SignupTwo";
+import DashBoard from "./containers/DashBoard";
 
 class App extends Component {
   state = {
@@ -96,6 +97,12 @@ class App extends Component {
             path="/map/"
             user={this.state.user}
             component={MapView}
+          />
+          <Protected
+            exact
+            path="/dashboard"
+            user={this.state.user}
+            component={DashBoard}
           />
           <Route render={() => <h2>404 Page not found</h2>} />
         </Switch>

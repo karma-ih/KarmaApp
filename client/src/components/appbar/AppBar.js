@@ -27,7 +27,7 @@ const AppBar = () => {
     <div>
       <div style={phantom} />
       <div className="footer-icons-wrapper" style={style}>
-        <Link style={{ color: "white" }} to="/">
+        <Link style={{ color: "white" }} to="/dashboard">
           <i className="fas footer-icons fa-home" />
         </Link>
         <Link style={{ color: "white" }} to="/market">

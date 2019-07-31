@@ -231,13 +231,17 @@ router.put("/:id", (req, res, next) => {
     return;
   }
 
-  Posting.findByIdAndUpdate(postId, {
-    $pull: { applicant: req.body.applicantId },
-    $push: { otherParty: req.body.applicantId }
-  })
-    .then(() => {
+  Posting.findByIdAndUpdate(
+    postId,
+    {
+      $pull: { applicant: req.body.applicantId },
+      $push: { otherParty: req.body.applicantId }
+    },
+    { new: true }
+  )
+    .then(posting => {
       res.json({
-        message: `Posting with ${id} is updated successfully`
+        posting
       });
     })
     .catch(err => {
@@ -267,10 +271,22 @@ router.delete("/:id", (req, res, next) => {
 router.post("/:id/apply", (req, res, next) => {
   console.log(req.params.id);
   console.log(req.user._id);
-  Posting.findByIdAndUpdate(req.params.id, {
-    $push: { applicant: req.user._id }
-  })
+  Posting.findByIdAndUpdate(
+    req.params.id,
+    {
+      $push: { applicant: req.user._id }
+    },
+    { new: true }
+  )
+    .populate([
+      { path: "creator", model: "User" },
+      { path: "applicant", model: "User" },
 
+      {
+        path: "message.user",
+        model: "User"
+      }
+    ])
     .then(response => {
       res.status(200).json(response);
     })

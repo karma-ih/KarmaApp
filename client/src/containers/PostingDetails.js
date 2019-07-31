@@ -14,7 +14,8 @@ class PostingDetails extends Component {
     city: "",
     creator: {},
     applicant: [],
-    message: []
+    message: [],
+    otherParty: []
   };
 
   getPosting = () => {
@@ -32,7 +33,8 @@ class PostingDetails extends Component {
           city,
           applicant,
           creator,
-          message
+          message,
+          otherParty
         } = response.data;
         this.setState({
           title,
@@ -43,7 +45,8 @@ class PostingDetails extends Component {
           creator,
           city,
           applicant,
-          message
+          message,
+          otherParty
         });
       })
       .catch(err => {
@@ -59,10 +62,18 @@ class PostingDetails extends Component {
       .post(`/api/postings/${id}/apply`, {
         _id: user_id
       })
-      .then(response => response.data)
+      .then(response => {
+        this.setState({
+          applicant: response.data.applicant
+        });
+      })
       .catch(err => {
         console.log(err);
       });
+  };
+
+  handleConfirm = otherParty => {
+    this.setState({ otherParty });
   };
 
   componentDidMount() {
@@ -80,6 +91,8 @@ class PostingDetails extends Component {
         <MarketPostDetails
           paramsId={this.props.match.params}
           details={this.state}
+          user={this.props.user}
+          handleConfirm={this.handleConfirm}
         />
         <MessageList
           id={this.props.match.params}

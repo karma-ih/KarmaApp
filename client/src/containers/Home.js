@@ -9,15 +9,20 @@ const Home = () => {
       <div
         style={{
           fontSize: "2rem",
-          paddingTop: "100px"
+          padding: "30px"
+          
         }}
         className="landingOne"
       >
-        <h1>Welcome to Karma Coin</h1>
-        <p>
-          Karma coin is the first non-monetary pseudo-crypto coin, that is only
-          powered by the community bla bla bla
-        </p>
+        <h3>Fuero Karma Kultur</h3>
+        <h6>
+          
+            Fuero: [Latin] a forum, an open space used as market, tribunal and meeting place. </h6>
+        <h6>  Karma: [Sankskrit] means action, work or deed. It also refers to the spiritual principle of cause and effect. </h6>
+<h6>
+  Kultur: Manifestations of human intellectual achievement regarded collectively.
+       
+       </h6>
       </div>
       <div>
         <LandingCarousel />

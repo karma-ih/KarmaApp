@@ -115,11 +115,11 @@ nav > button {
 }
 
 .landingOne {
-  color: white;
   height: 85vh;
   background-image: url("/kazuend-2KXEb_8G5vo-unsplash.jpg");
   background-position: center;
   background-size: cover;
+  color: orange;
 }
 
 .fa-map-marker-alt {
@@ -129,4 +129,9 @@ nav > button {
 
 .mapbox-popup {
   color: black !important;
+}
+
+.FacebookLogin {
+background-color: #F7F1D7;
+background-image: url("/Background Login.jpg");
 }

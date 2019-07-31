@@ -31,7 +31,7 @@ class MarketPlaceCarousel extends Component {
   render() {
     return (
       <div>
-        <h1>Marketplace:</h1>
+        {/* <h1>Marketplace:</h1>
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList
             className="card"
@@ -41,7 +41,7 @@ class MarketPlaceCarousel extends Component {
               ...this.state.postings_otherParty
             ]}
           />
-        </div>
+        </div> */}
         <h1>My Postings</h1>
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList className="card" postings={this.state.postings} />

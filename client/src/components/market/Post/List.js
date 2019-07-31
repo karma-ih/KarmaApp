@@ -2,8 +2,6 @@ import React from "react";
 import MarketPostBox from "./Box";
 
 const MarketPostList = props => {
-  // console.log(props.search);
-
   return (
     <>
       {/* {props.postings.length > 0 && <h2>Marketplace:</h2>} */}

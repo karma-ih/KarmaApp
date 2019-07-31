@@ -75,11 +75,11 @@ class Postings extends Component {
               sortByName={this.sortByName}
               sortByKarma={this.sortByKarma}
             />
-            <div className="scrolling-wrapper-flexbox">
+            <div className="flex-container-market">
               <MarketPostList
                 search={this.state.searchInput}
                 postings={this.state.postings}
-                className="card"
+                className="card wrap"
               />
             </div>
           </div>

@@ -1,3 +1,12 @@
+.flex-container-market {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
 h2 {
   color: black;
 }
@@ -13,9 +22,10 @@ h2 {
 }
 .card {
   border: 2px solid black;
-  width: 250px;
+  width: 225px;
   height: 125px;
   background: black;
+  margin: 10px;
 }
 .scrolling-wrapper-flexbox {
   height: 150px;

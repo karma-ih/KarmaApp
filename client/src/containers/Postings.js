@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import MarketPostList from "../components/market/Post/List";
 import SearchBar from "../components/market/Post/SearchBar";
+import Container from "react-bootstrap/Container";
 
 class Postings extends Component {
   state = {
@@ -79,7 +80,7 @@ class Postings extends Component {
               <MarketPostList
                 search={this.state.searchInput}
                 postings={this.state.postings}
-                className="card wrap"
+                className="card wrap market-card"
               />
             </div>
           </div>

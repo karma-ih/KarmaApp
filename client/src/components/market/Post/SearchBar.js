@@ -18,8 +18,12 @@ class SearchBar extends React.Component {
           value={this.props.searchInput}
           onChange={this.handleSearch}
         />
-        <Button onClick={this.props.sortByName}>Sort By Name</Button>
-        <Button onClick={this.props.sortByKarma}>Sort By Karma</Button>
+        <Button size="sm" onClick={this.props.sortByName}>
+          Name
+        </Button>
+        <Button size="sm" onClick={this.props.sortByKarma}>
+          Karma
+        </Button>
       </div>
     );
   }

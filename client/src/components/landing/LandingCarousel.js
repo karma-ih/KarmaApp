@@ -8,7 +8,7 @@ const LandingCarousel = () => {
         <Carousel.Item>
           <div
             style={{
-              height: "50vh",
+              height: "80vh",
               backgroundColor: "black",
               paddingTop: "25px"
             }}
@@ -26,7 +26,7 @@ const LandingCarousel = () => {
         <Carousel.Item>
           <div
             style={{
-              height: "50vh",
+              height: "80vh",
               backgroundColor: "black",
               paddingTop: "25px"
             }}
@@ -47,7 +47,7 @@ const LandingCarousel = () => {
         <Carousel.Item>
           <div
             style={{
-              height: "50vh",
+              height: "80vh",
               backgroundColor: "black",
               paddingTop: "25px"
             }}

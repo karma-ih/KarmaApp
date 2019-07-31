@@ -43,7 +43,7 @@ const postingSchema = new Schema(
         }
       }
     ],
-    transcation: { type: Schema.Types.ObjectId, ref: "Transaction" }
+    transcations: [{ type: Schema.Types.ObjectId, ref: "Transaction" }]
   },
   {
     timestamps: {

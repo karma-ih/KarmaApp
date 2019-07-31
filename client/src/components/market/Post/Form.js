@@ -59,7 +59,7 @@ class MarketPostForm extends Component {
         longitude
       })
       .then(response => {
-        //   this.props.refreshList();
+        this.props.setUser(response.data);
         this.setState({
           title: "",
           description: "",

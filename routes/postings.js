@@ -8,6 +8,7 @@ const apiKey = process.env.LOCATION_IQ_KEY;
 
 const Posting = require("../models/Posting");
 const User = require("../models/User");
+const performTransaction = require("./transactions");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
@@ -26,54 +27,62 @@ router.post("/", (req, res, next) => {
 
   if (selectedLocation === "current") {
     const queryString = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
-    axios.get(queryString).then(
-      response => {
-        const queryStreet = response.data.address.address29;
-        const queryZip = response.data.address.postcode;
-        const queryCity = response.data.address.city;
 
-        Posting.create({
-          title,
-          description,
-          creator: id,
-          karma,
-          address: {
-            street: queryStreet,
-            postalCode: queryZip,
-            city: queryCity
-          },
-          location: {
-            type: "Point",
-            coordinates: [latitude, longitude]
-          }
+    axios.get(queryString).then(response => {
+      const queryStreet = response.data.address.address29;
+      const queryZip = response.data.address.postcode;
+      const queryCity = response.data.address.city;
+
+      Posting.create({
+        title,
+        description,
+        creator: id,
+        karma,
+        address: {
+          street: queryStreet,
+          postalCode: queryZip,
+          city: queryCity
+        },
+        location: {
+          type: "Point",
+          coordinates: [latitude, longitude]
+        }
+      })
+        .then(response => {
+          console.log(response);
+          const { postingId, amount, type, userId } = response;
+          return performTransaction(postingId, amount, type, userId);
         })
-          .then(response => {
-            res.json(response);
-          })
-          .catch(err => {
-            res.json(err);
-          });
-      },
-      error => {
-        console.error(error);
-      }
-    );
+        .catch(err => {
+          console.log(err);
+        });
+    });
+
+    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true })
+      .then(user => {
+        res.json(user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   if (selectedLocation === "home") {
-    User.findById(id)
-      .then(response => {
-        const userStreet = response.address.street;
-        const userCity = response.address.city;
-        const userZip = response.address.postalCode;
+    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true }).then(
+      user => {
+        res.json(user);
+        const userStreet = user.address.street;
+        const userCity = user.address.city;
+        const userZip = user.address.postalCode;
         const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${userStreet}&city=${userCity}&postalcode=${userZip}&format=json`;
 
-        axios.get(queryString).then(
-          response => {
+        return axios
+          .get(queryString)
+          .then(response => {
             const queryLatitude = response.data[0].lat;
             const queryLongitude = response.data[0].lon;
             // console.log(response);
-            Posting.create({
+            return Posting.create({
               title,
               description,
               creator: id,
@@ -87,60 +96,52 @@ router.post("/", (req, res, next) => {
                 type: "Point",
                 coordinates: [queryLatitude, queryLongitude]
               }
-            })
-              .then(response => {
-                res.json(response);
-              })
-              .catch(err => {
-                res.json(err);
-              });
-          },
-          error => {
-            console.error(error);
-          }
-        );
-      })
-      .catch(err => {
-        console.error(err);
-      });
+            }).then(response => {
+              console.log(response);
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    );
   }
 
   if (selectedLocation === "other") {
     const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${street}&city=${city}&postalcode=${zip}&format=json`;
     axios
       .get(queryString)
-      .then(
-        response => {
-          const queryLatitude = response.data[0].lat;
-          const queryLongitude = response.data[0].lon;
-          Posting.create({
-            title,
-            description,
-            creator: id,
-            karma,
-            address: {
-              street: street,
-              postalCode: zip,
-              city: city
-            },
-            location: {
-              type: "Point",
-              coordinates: [queryLatitude, queryLongitude]
-            }
-          })
-            .then(response => {
-              res.json(response);
-            })
-            .catch(err => {
-              res.json(err);
-            });
-        },
-        error => {
-          console.error(error);
-        }
-      )
+      .then(response => {
+        const queryLatitude = response.data[0].lat;
+        const queryLongitude = response.data[0].lon;
+        return Posting.create({
+          title,
+          description,
+          creator: id,
+          karma,
+          address: {
+            street: street,
+            postalCode: zip,
+            city: city
+          },
+          location: {
+            type: "Point",
+            coordinates: [queryLatitude, queryLongitude]
+          }
+        }).then(response => {
+          console.log(response);
+        });
+      })
       .catch(err => {
         console.error(err);
+      });
+
+    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true })
+      .then(user => {
+        res.json(user);
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 });

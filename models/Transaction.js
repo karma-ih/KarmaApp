@@ -1,17 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+// ProvenDB Schema
+const provenMongoClient = require("mongoose");
+const Schema = provenMongoClient.Schema;
 
 const transactionSchema = new Schema(
   {
-    title: String,
-    description: String,
+    posting: { type: Schema.Types.ObjectId, ref: "Posting" },
     amount: Number,
     status: {
       type: String,
-      enum: ["escrow", "completed"]
+      enum: ["escrow", "completed", "refund"]
     },
-    sender: { type: Schema.Types.ObjectId, ref: "User" },
-    receiver: { type: Schema.Types.ObjectId, ref: "User" }
+    user: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
     timestamps: {
@@ -21,6 +20,6 @@ const transactionSchema = new Schema(
   }
 );
 
-const Transaction = mongoose.model("Transaction", transactionSchema);
+const Transaction = provenMongoClient.model("Transaction", transactionSchema);
 
 module.exports = Transaction;

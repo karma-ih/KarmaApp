@@ -25,7 +25,7 @@ const MarketPostList = props => {
         : props.postings.map(posting => {
             return (
               <MarketPostBox
-                className={props.className}
+                className="card card-xt"
                 posting={posting}
                 key={posting._id}
               />

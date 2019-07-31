@@ -1,6 +1,7 @@
 .flex-container-market {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .wrap {
@@ -22,19 +23,37 @@ h2 {
 }
 .card {
   border: 2px solid black;
-  width: 225px;
-  height: 125px;
+  width: 250px;
+  height: 250px;
   background: black;
   margin: 10px;
 }
+
+.card-xt {
+  border: 5px solid black !important;
+  height: 250px !important;
+}
+
+@media only screen and (max-width: 576) {
+  .card {
+    width: 100%;
+    border: 5px solid black;
+  }
+}
 .scrolling-wrapper-flexbox {
-  height: 150px;
+  height: 100%;
   margin-bottom: 20px;
   width: 100%;
   -webkit-overflow-scrolling: touch;
 }
 .scrolling-wrapper-flexbox::-webkit-scrollbar {
   display: none;
+}
+
+@media only screen and (max-width: 576) {
+  .market-card {
+    width: 100%;
+  }
 }
 
 /*MARKETPLACECAROUSEL*/

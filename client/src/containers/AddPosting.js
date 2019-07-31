@@ -5,7 +5,7 @@ class AddPosting extends Component {
   render() {
     return (
       <div>
-        <MarketPostForm user={this.props.user} />
+        <MarketPostForm user={this.props.user} setUser={this.props.setUser} />
       </div>
     );
   }

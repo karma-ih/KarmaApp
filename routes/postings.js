@@ -167,6 +167,9 @@ router.get("/", (req, res, next) => {
       creator: req.query.user
     };
   }
+  // console.log(query);
+  // console.log(req.query.user);
+
   Posting.find(query)
     .then(allPostings => {
       if (req.query.user) {

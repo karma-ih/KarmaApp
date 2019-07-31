@@ -37,7 +37,8 @@ class MarketPlaceCarousel extends Component {
             className="card"
             postings={[
               ...this.state.postings,
-              ...this.state.postings_applicant
+              ...this.state.postings_applicant,
+              ...this.state.postings_otherParty
             ]}
           />
         </div>

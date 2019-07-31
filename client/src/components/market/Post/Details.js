@@ -4,11 +4,24 @@ import React from "react";
 // import EditTask from "../EditTask";
 
 const MarketPostDetails = props => {
-  const { title, description } = props.details;
+  console.log(props.details);
+  let { title, description } = props.details;
+  console.log(props.details.applicant);
+  let applicantNameArr = props.details.applicant.map((applicant, i) => {
+    return (
+      <h3 key={i}>
+        Applicant for the Posting: {applicant.facebookName}
+        {applicant.username}
+      </h3>
+    );
+  });
+  console.log(applicantNameArr);
+
   return (
     <div>
       <h1>{title}</h1>
       <h2>{description}</h2>
+      {applicantNameArr}
     </div>
   );
 };

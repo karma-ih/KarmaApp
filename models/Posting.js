@@ -6,6 +6,7 @@ const postingSchema = new Schema(
     title: String,
     description: String,
     creator: { type: Schema.Types.ObjectId, ref: "User" },
+    applicant: [{ type: Schema.Types.ObjectId, ref: "User" }],
     otherParty: { type: Schema.Types.ObjectId, ref: "User" },
     karma: Number,
     address: {

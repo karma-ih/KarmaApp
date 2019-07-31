@@ -5,7 +5,7 @@ import MessageSend from "./MessageSend";
 const MessageList = props => {
   // console.log(props.user);
   // console.log(props.id);
-  console.log(props);
+  // console.log(props);
 
   const messages = props.data.map((message, i) => {
     return <Message message={message} key={i} />;

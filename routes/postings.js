@@ -161,9 +161,24 @@ router.post("/:id/message", (req, res, next) => {
 
 //GET ROUTE FOR POSTINGS
 router.get("/", (req, res, next) => {
-  Posting.find()
+  let query = {};
+  if (req.query.user) {
+    query = {
+      creator: req.query.user
+    };
+  }
+  Posting.find(query)
     .then(allPostings => {
-      res.json(allPostings);
+      if (req.query.user) {
+        Posting.find({ applicant: req.query.user }).then(postingsApplicant => {
+          res.json({
+            postings: allPostings,
+            postings_applicant: postingsApplicant
+          });
+        });
+      } else {
+        res.json(allPostings);
+      }
     })
     .catch(err => {
       res.json(err);
@@ -181,6 +196,8 @@ router.get("/:id", (req, res, next) => {
   Posting.findById(id)
     .populate([
       { path: "creator", model: "User" },
+      { path: "applicant", model: "User" },
+
       {
         path: "message.user",
         model: "User"
@@ -227,6 +244,21 @@ router.delete("/:id", (req, res, next) => {
       res.json({
         message: `Posting with id ${id} is removed successfully`
       });
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+router.post("/:id/apply", (req, res, next) => {
+  console.log(req.params.id);
+  console.log(req.user._id);
+  Posting.findByIdAndUpdate(req.params.id, {
+    $push: { applicant: req.user._id }
+  })
+
+    .then(response => {
+      res.status(200).json(response);
     })
     .catch(err => {
       res.json(err);

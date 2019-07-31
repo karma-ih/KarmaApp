@@ -171,10 +171,15 @@ router.get("/", (req, res, next) => {
     .then(allPostings => {
       if (req.query.user) {
         Posting.find({ applicant: req.query.user }).then(postingsApplicant => {
-          res.json({
-            postings: allPostings,
-            postings_applicant: postingsApplicant
-          });
+          Posting.find({ otherParty: req.query.user }).then(
+            postingOtherParty => {
+              res.json({
+                postings: allPostings,
+                postings_applicant: postingsApplicant,
+                postings_otherParty: postingOtherParty
+              });
+            }
+          );
         });
       } else {
         res.json(allPostings);

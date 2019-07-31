@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 // const provendbUri = process.env.PROVENDB_URI;
 const provendbUri =
-  "mongodb://karmahacker:keyboardkarma@karma-app.provendb.io/karma-app?ssl=true";
+  "mongodb://karmahacker:keyboardkarma@karma-blockchain.provendb.io/karma-blockchain?ssl=true";
 
 // Connection checker for ProvenDb Database
 const main = () => {
@@ -15,7 +15,7 @@ const main = () => {
     });
   });
 };
-main();
+// main();
 
 const createTransactionCollection = () => {
   MongoClient.connect(provendbUri, {
@@ -60,4 +60,4 @@ const createTransactionCollection = () => {
     });
 };
 
-createTransactionCollection();
+// createTransactionCollection();

@@ -12,8 +12,7 @@ const performTransaction = require("./transactions");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
-  let {
-    id,
+  const {
     title,
     description,
     karma,
@@ -24,6 +23,7 @@ router.post("/", (req, res, next) => {
     latitude,
     longitude
   } = req.body;
+  const user = req.body.user;
 
   if (selectedLocation === "current") {
     const queryString = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
@@ -32,11 +32,11 @@ router.post("/", (req, res, next) => {
       const queryStreet = response.data.address.address29;
       const queryZip = response.data.address.postcode;
       const queryCity = response.data.address.city;
-
-      Posting.create({
+      console.log(`Location geocoded: ${queryStreet}`);
+      return Posting.create({
         title,
         description,
-        creator: id,
+        creator: user._id,
         karma,
         address: {
           street: queryStreet,
@@ -49,62 +49,62 @@ router.post("/", (req, res, next) => {
         }
       })
         .then(response => {
-          console.log(response);
-          const { postingId, amount, type, userId } = response;
-          return performTransaction(postingId, amount, type, userId);
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
         })
         .catch(err => {
           console.log(err);
         });
     });
+  }
 
-    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true })
-      .then(user => {
-        res.json(user);
+  if (selectedLocation === "home") {
+    const userStreet = user.address.street;
+    const userCity = user.address.city;
+    const userZip = user.address.postalCode;
+    const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${userStreet}&city=${userCity}&postalcode=${userZip}&format=json`;
+
+    return axios
+      .get(queryString)
+      .then(response => {
+        const queryLatitude = response.data[0].lat;
+        const queryLongitude = response.data[0].lon;
+        console.log(`Location geocoded: ${userStreet}`);
+
+        return Posting.create({
+          title,
+          description,
+          creator: user._id,
+          karma,
+          address: {
+            street: userStreet,
+            postalCode: userZip,
+            city: userCity
+          },
+          location: {
+            type: "Point",
+            coordinates: [queryLatitude, queryLongitude]
+          }
+        }).then(response => {
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
+        });
       })
       .catch(err => {
         console.log(err);
       });
-  }
-
-  if (selectedLocation === "home") {
-    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true }).then(
-      user => {
-        res.json(user);
-        const userStreet = user.address.street;
-        const userCity = user.address.city;
-        const userZip = user.address.postalCode;
-        const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${userStreet}&city=${userCity}&postalcode=${userZip}&format=json`;
-
-        return axios
-          .get(queryString)
-          .then(response => {
-            const queryLatitude = response.data[0].lat;
-            const queryLongitude = response.data[0].lon;
-            // console.log(response);
-            return Posting.create({
-              title,
-              description,
-              creator: id,
-              karma,
-              address: {
-                street: street,
-                postalCode: zip,
-                city: city
-              },
-              location: {
-                type: "Point",
-                coordinates: [queryLatitude, queryLongitude]
-              }
-            }).then(response => {
-              console.log(response);
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    );
   }
 
   if (selectedLocation === "other") {
@@ -117,7 +117,7 @@ router.post("/", (req, res, next) => {
         return Posting.create({
           title,
           description,
-          creator: id,
+          creator: user._id,
           karma,
           address: {
             street: street,
@@ -129,19 +129,18 @@ router.post("/", (req, res, next) => {
             coordinates: [queryLatitude, queryLongitude]
           }
         }).then(response => {
-          console.log(response);
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
         });
       })
       .catch(err => {
         console.error(err);
-      });
-
-    User.findByIdAndUpdate(id, { $inc: { karma: -karma } }, { new: true })
-      .then(user => {
-        res.json(user);
-      })
-      .catch(err => {
-        console.log(err);
       });
   }
 });

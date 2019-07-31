@@ -69,7 +69,7 @@ const userSchema = new Schema(
     imageUrl: {
       type: String
     },
-    transcations: [{ type: Schema.Types.ObjectId, ref: "Transaction" }]
+    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }]
   },
   {
     timestamps: true

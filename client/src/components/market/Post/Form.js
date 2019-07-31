@@ -32,7 +32,7 @@ class MarketPostForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const id = this.props.user._id;
+    const user = this.props.user;
     const {
       title,
       description,
@@ -47,7 +47,7 @@ class MarketPostForm extends Component {
 
     axios
       .post("/api/postings", {
-        id,
+        user,
         title,
         description,
         karma,

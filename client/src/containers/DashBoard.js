@@ -5,7 +5,8 @@ import MarketPostList from "../components/market/Post/List";
 class MarketPlaceCarousel extends Component {
   state = {
     postings: [],
-    postings_applicant: []
+    postings_applicant: [],
+    postings_otherParty: []
   };
 
   getData = () => {
@@ -14,7 +15,8 @@ class MarketPlaceCarousel extends Component {
       .then(response => {
         this.setState({
           postings: response.data.postings,
-          postings_applicant: response.data.postings_applicant
+          postings_applicant: response.data.postings_applicant,
+          postings_otherParty: response.data.postings_otherParty
         });
       })
       .catch(err => {
@@ -49,6 +51,13 @@ class MarketPlaceCarousel extends Component {
           <MarketPostList
             className="card"
             postings={this.state.postings_applicant}
+          />
+        </div>
+        <h1>Postings I'm Handling</h1>
+        <div className="scrolling-wrapper-flexbox">
+          <MarketPostList
+            className="card"
+            postings={this.state.postings_otherParty}
           />
         </div>
       </div>

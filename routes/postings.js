@@ -214,13 +214,19 @@ router.get("/:id", (req, res, next) => {
 //PUT ROUTE FOR UPDATING A SPECIFIC POSTING
 router.put("/:id", (req, res, next) => {
   const { id, description } = req.params;
+  const { postId, applicantId } = req.body;
+  console.log(postId);
+  console.log(applicantId);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: "Specified ID is not valid" });
     return;
   }
 
-  Posting.findByIdAndUpdate(id, { description })
+  Posting.findByIdAndUpdate(postId, {
+    $pull: { applicant: req.body.applicantId },
+    $push: { otherParty: req.body.applicantId }
+  })
     .then(() => {
       res.json({
         message: `Posting with ${id} is updated successfully`

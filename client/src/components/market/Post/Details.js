@@ -1,30 +1,57 @@
 import React from "react";
-// import axios from "axios";
+import { Button } from "react-bootstrap";
+import axios from "axios";
 // import { Link } from "react-router-dom";
 // import EditTask from "../EditTask";
 
-const MarketPostDetails = props => {
-  console.log(props.details);
-  let { title, description } = props.details;
-  console.log(props.details.applicant);
-  let applicantNameArr = props.details.applicant.map((applicant, i) => {
-    return (
-      <h3 key={i}>
-        Applicant for the Posting: {applicant.facebookName}
-        {applicant.username}
-      </h3>
-    );
-  });
-  console.log(applicantNameArr);
+class MarketPostDetails extends React.Component {
+  confirmApplicant = e => {
+    const postId = this.props.paramsId.id;
+    axios
+      .put(`/api/postings/${postId}`, {
+        postId: postId,
+        applicantId: e
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-  return (
-    <div>
-      <h1>{title}</h1>
-      <h2>{description}</h2>
-      {applicantNameArr}
-    </div>
-  );
-};
+  render() {
+    console.log(this.props.details);
+    let { title, description } = this.props.details;
+    console.log(this.props.details.applicant);
+    let applicantNameArr = this.props.details.applicant.map((applicant, i) => {
+      return (
+        <div>
+          <h3 key={applicant._id}>
+            Applicant for the Posting: {applicant.facebookName}
+            {applicant.username}
+          </h3>
+          <Button
+            onClick={() => {
+              this.confirmApplicant(applicant._id);
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      );
+    });
+    console.log(applicantNameArr);
+
+    return (
+      <div>
+        <h1>{title}</h1>
+        <h2>{description}</h2>
+        {applicantNameArr}
+      </div>
+    );
+  }
+}
 
 // class TaskDetail extends Component {
 //   state = {

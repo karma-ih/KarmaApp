@@ -77,7 +77,10 @@ class PostingDetails extends Component {
     console.log(this.state.applicant);
     return (
       <div>
-        <MarketPostDetails details={this.state} />
+        <MarketPostDetails
+          paramsId={this.props.match.params}
+          details={this.state}
+        />
         <MessageList
           id={this.props.match.params}
           user={this.props.user}

@@ -189,10 +189,23 @@ router.get("/", (req, res, next) => {
         Posting.find({ applicant: req.query.user }).then(postingsApplicant => {
           Posting.find({ otherParty: req.query.user }).then(
             postingOtherParty => {
-              res.json({
-                postings: allPostings,
-                postings_applicant: postingsApplicant,
-                postings_otherParty: postingOtherParty
+              Posting.find({
+                $and: [
+                  { isDone: true },
+                  {
+                    $or: [
+                      { creator: req.query.user },
+                      { otherParty: req.query.user }
+                    ]
+                  }
+                ]
+              }).then(postingsDone => {
+                res.json({
+                  postings: allPostings,
+                  postings_applicant: postingsApplicant,
+                  postings_otherParty: postingOtherParty,
+                  postings_done: postingsDone
+                });
               });
             }
           );

@@ -52,10 +52,16 @@ class MarketPostDetails extends React.Component {
         <h2>{description}</h2>
         {applicantNameArr}
         {this.props.details.otherParty.length >= 1 &&
-          this.props.details.creator._id === this.props.user._id && (
+          this.props.details.creator._id === this.props.user._id &&
+          !this.props.details.isDone && (
             <div>
               {this.props.details.otherParty[0].username} is helping you :)
             </div>
+          )}
+        {this.props.details.isDone &&
+          (this.props.details.otherParty[0]._id === this.props.user._id ||
+            this.props.details.creator._id === this.props.user._id) && (
+            <div>Job is done</div>
           )}
       </div>
     );

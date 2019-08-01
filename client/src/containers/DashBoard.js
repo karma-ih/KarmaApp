@@ -6,7 +6,8 @@ class MarketPlaceCarousel extends Component {
   state = {
     postings: [],
     postings_applicant: [],
-    postings_otherParty: []
+    postings_otherParty: [],
+    postings_history: []
   };
 
   getData = () => {
@@ -16,7 +17,8 @@ class MarketPlaceCarousel extends Component {
         this.setState({
           postings: response.data.postings,
           postings_applicant: response.data.postings_applicant,
-          postings_otherParty: response.data.postings_otherParty
+          postings_otherParty: response.data.postings_otherParty,
+          postings_history: response.data.postings_done
         });
       })
       .catch(err => {
@@ -47,18 +49,25 @@ class MarketPlaceCarousel extends Component {
           <MarketPostList className="card" postings={this.state.postings} />
         </div>
 
-        <h1>Postings I'm Applying</h1>
+        {/* <h1>Postings I'm Applying</h1>
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList
             className="card"
             postings={this.state.postings_applicant}
           />
-        </div>
+        </div> */}
         <h1>Postings I'm Handling</h1>
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList
             className="card"
             postings={this.state.postings_otherParty}
+          />
+        </div>
+        <h1>My past transcactions</h1>
+        <div className="scrolling-wrapper-flexbox">
+          <MarketPostList
+            className="card"
+            postings={this.state.postings_history}
           />
         </div>
       </div>

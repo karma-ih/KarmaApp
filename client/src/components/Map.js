@@ -88,15 +88,13 @@ export default function Mapview() {
             offsetTop={-10}
             key={i}
           >
-            <button
-              className="map-marker-button"
+            <i
               onClick={e => {
                 e.preventDefault();
                 setSelectedTask(task);
               }}
-            >
-              <i className="fas fa-map-marker-alt" />
-            </button>
+              className="fas fa-map-marker-alt"
+            />
           </Marker>
         ))}
 

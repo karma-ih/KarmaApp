@@ -187,3 +187,8 @@ nav > button {
   margin: 0;
   padding: 0;
 }
+
+.fa-map-marker-alt {
+  color: orange;
+  font-size: 1.5rem;
+}

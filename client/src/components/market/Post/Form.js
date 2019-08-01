@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 
 class MarketPostForm extends Component {
   state = {
@@ -13,7 +13,8 @@ class MarketPostForm extends Component {
     city: "",
     latitude: 0,
     longitude: 0,
-    message: []
+    message: [],
+    error: ""
   };
 
   componentDidMount() {
@@ -60,6 +61,7 @@ class MarketPostForm extends Component {
         longitude
       })
       .then(response => {
+        console.log(response);
         this.props.setUser(response.data);
         this.setState({
           title: "",
@@ -68,10 +70,13 @@ class MarketPostForm extends Component {
           selectedLocation: "current",
           street: "",
           zip: "",
-          city: ""
+          city: "",
+          error: ""
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.setState({ error: err.response.data.message });
+      });
   };
 
   handleChange = event => {
@@ -175,6 +180,9 @@ class MarketPostForm extends Component {
             </>
           ) : (
             <></>
+          )}
+          {this.state.error && (
+            <Alert variant="warning">{this.state.error}</Alert>
           )}
           ​<Button type="submit">Add</Button>
         </Form>

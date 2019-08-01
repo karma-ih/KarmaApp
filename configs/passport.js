@@ -40,30 +40,3 @@ passport.use(
     });
   })
 );
-
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/callback"
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log("facebook acount details", profile);
-      User.findOne({ facebookId: profile.id })
-        .then(user => {
-          if (user) return done(null, user);
-
-          return User.create({
-            facebookId: profile.id,
-            fullName: profile.displayName
-          }).then(newUser => {
-            return done(null, newUser);
-          });
-        })
-        .catch(err => {
-          done(err);
-        });
-    }
-  )
-);

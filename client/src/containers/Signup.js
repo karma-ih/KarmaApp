@@ -30,7 +30,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="profile-card">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="username">Username:</Form.Label>
@@ -52,15 +52,15 @@ class Signup extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-
           {this.state.error && (
             <Alert variant="warning">{this.state.error}</Alert>
           )}
-
-          <Button type="submit">Signup</Button>
+          <button className="example_c" type="submit">
+            Signup
+          </button>
         </Form>
         <Facebook />
-      </React.Fragment>
+      </div>
     );
   }
 }

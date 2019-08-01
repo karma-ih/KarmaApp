@@ -41,7 +41,6 @@ class Postings extends Component {
     this.setState({
       search: value
     });
-    console.log(filteredPostings);
   };
 
   sortByName = () => {

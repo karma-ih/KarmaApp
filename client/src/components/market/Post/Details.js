@@ -33,13 +33,14 @@ class MarketPostDetails extends React.Component {
                   {applicant.username}
                 </h3>
 
-                <Button
+                <button
+                  className="example_c"
                   onClick={() => {
                     this.confirmApplicant(applicant._id);
                   }}
                 >
                   Confirm
-                </Button>
+                </button>
               </div>
             )}
         </>

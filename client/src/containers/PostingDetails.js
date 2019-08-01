@@ -121,12 +121,16 @@ class PostingDetails extends Component {
         />
         {!this.state.applicant.find(el => el._id === this.props.user._id) &&
           this.props.user._id !== this.state.creator._id && (
-            <Button onClick={this.applyPosting}>Apply</Button>
+            <button className="example_c" onClick={this.applyPosting}>
+              Apply
+            </button>
           )}
         {this.props.user._id === this.state.creator._id &&
           this.state.otherParty.length >= 1 &&
           this.state.isDone === false && (
-            <Button onClick={this.triggerPayOut}>Mark as Done</Button>
+            <button className="example_c" onClick={this.triggerPayOut}>
+              Mark as Done
+            </button>
           )}
       </div>
     );

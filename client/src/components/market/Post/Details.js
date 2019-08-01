@@ -20,7 +20,7 @@ class MarketPostDetails extends React.Component {
 
   render() {
     console.log(this.props.details);
-    let { title, description } = this.props.details;
+    let { title, description, karma, creator } = this.props.details;
     // console.log(this.props.details.applicant);
     let applicantNameArr = this.props.details.applicant.map((applicant, i) => {
       return (
@@ -48,9 +48,22 @@ class MarketPostDetails extends React.Component {
     });
 
     return (
-      <div>
-        <h1>{title}</h1>
-        <h2>{description}</h2>
+      <div className="post-card">
+        <div style={{ backgroundColor: "black" }}>
+          <img
+            src="/karmalogo.png"
+            width="45"
+            height="45"
+            style={{ margin: "10" }}
+            className="d-inline-block  align-top"
+            alt="KarmaApp logo"
+          />
+          <span style={{ color: "orange", margin: "auto 0" }}>{karma}</span>
+        </div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <img className="detail-img" src={creator.imageUrl} alt="" />
+        <p>Created By: {creator.facebookName}</p>
         {applicantNameArr}
         {this.props.details.otherParty.length >= 1 &&
           this.props.details.creator._id === this.props.user._id &&

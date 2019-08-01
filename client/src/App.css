@@ -1,3 +1,7 @@
+body {
+  font-family: "Montserrat", sans-serif !important;
+}
+
 .flex-container-market {
   display: flex;
   flex-wrap: wrap;
@@ -220,6 +224,7 @@ nav > button {
   -webkit-box-shadow: 3px 3px 7px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 3px 7px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 3px 3px 7px 0px rgba(0, 0, 0, 0.75);
+  width: 60px;
 }
 
 .div.mapboxgl-popup-content {
@@ -306,7 +311,7 @@ nav > button {
     width: 95%;
     height: 100%;
   }
-  .post-card img {
+  .post-card .detail-img {
     width: 100%;
   }
 }
@@ -314,5 +319,50 @@ nav > button {
 @media screen and (max-width: 576px) {
   .landing-logo {
     padding-top: 50px;
+  }
+}
+
+.msg-card {
+  background-color: #f5f8fa;
+  padding: 10px;
+  border-radius: 10px;
+  width: 310px;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+.msg-card img {
+  border-radius: 100%;
+}
+
+@media screen and (max-width: 576px) {
+  .msg-card {
+    width: 95%;
+    height: 100%;
+  }
+  .msg-card img {
+    width: 100%;
+  }
+}
+
+.msgsend-card {
+  background-color: #f5f8fa;
+  padding: 10px;
+  border-radius: 10px;
+  width: 310px;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
+@media screen and (max-width: 576px) {
+  .msgsend-card {
+    width: 95%;
+    height: 100%;
+  }
+  .msg-card img {
+    width: 100%;
   }
 }

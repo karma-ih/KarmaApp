@@ -44,7 +44,7 @@ export class MessageSend extends Component {
 
   render() {
     return (
-      <div>
+      <div class="msgsend-card">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label>Message Field</Form.Label>
@@ -57,7 +57,10 @@ export class MessageSend extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          ​<Button type="submit">Send</Button>
+          ​
+          <button className="example_c" type="submit">
+            Send
+          </button>
         </Form>
       </div>
     );

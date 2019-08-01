@@ -70,7 +70,7 @@ class SignupInfo extends Component {
   };
 
   render() {
-    console.log(this.props.location);
+    // console.log(this.props.location);
     return (
       <React.Fragment>
         <Form onSubmit={this.handleSubmit}>

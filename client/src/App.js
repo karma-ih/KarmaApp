@@ -79,6 +79,7 @@ class App extends Component {
             path="/market/post"
             redirectPath="/login"
             user={this.state.user}
+            setUser={this.setUser}
             component={AddPosting}
           />
           <Protected

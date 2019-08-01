@@ -68,7 +68,8 @@ const userSchema = new Schema(
     },
     imageUrl: {
       type: String
-    }
+    },
+    transactions: [{ type: Schema.Types.ObjectId, ref: "Transaction" }]
   },
   {
     timestamps: true

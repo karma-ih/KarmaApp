@@ -8,11 +8,11 @@ const apiKey = process.env.LOCATION_IQ_KEY;
 
 const Posting = require("../models/Posting");
 const User = require("../models/User");
+const performTransaction = require("./transactions");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
-  let {
-    id,
+  const {
     title,
     description,
     karma,
@@ -23,85 +23,87 @@ router.post("/", (req, res, next) => {
     latitude,
     longitude
   } = req.body;
+  const user = req.body.user;
 
   if (selectedLocation === "current") {
     const queryString = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
-    axios.get(queryString).then(
-      response => {
-        const queryStreet = response.data.address.address29;
-        const queryZip = response.data.address.postcode;
-        const queryCity = response.data.address.city;
 
-        Posting.create({
-          title,
-          description,
-          creator: id,
-          karma,
-          address: {
-            street: queryStreet,
-            postalCode: queryZip,
-            city: queryCity
-          },
-          location: {
-            type: "Point",
-            coordinates: [latitude, longitude]
-          }
+    axios.get(queryString).then(response => {
+      const queryStreet = response.data.address.address29;
+      const queryZip = response.data.address.postcode;
+      const queryCity = response.data.address.city;
+      console.log(`Location geocoded: ${queryStreet}`);
+      return Posting.create({
+        title,
+        description,
+        creator: user._id,
+        karma,
+        address: {
+          street: queryStreet,
+          postalCode: queryZip,
+          city: queryCity
+        },
+        location: {
+          type: "Point",
+          coordinates: [latitude, longitude]
+        }
+      })
+        .then(response => {
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
         })
-          .then(response => {
-            res.json(response);
-          })
-          .catch(err => {
-            res.json(err);
-          });
-      },
-      error => {
-        console.error(error);
-      }
-    );
+        .catch(err => {
+          console.log(err);
+        });
+    });
   }
 
   if (selectedLocation === "home") {
-    User.findById(id)
-      .then(response => {
-        const userStreet = response.address.street;
-        const userCity = response.address.city;
-        const userZip = response.address.postalCode;
-        const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${userStreet}&city=${userCity}&postalcode=${userZip}&format=json`;
+    const userStreet = user.address.street;
+    const userCity = user.address.city;
+    const userZip = user.address.postalCode;
+    const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${userStreet}&city=${userCity}&postalcode=${userZip}&format=json`;
 
-        axios.get(queryString).then(
-          response => {
-            const queryLatitude = response.data[0].lat;
-            const queryLongitude = response.data[0].lon;
-            // console.log(response);
-            Posting.create({
-              title,
-              description,
-              creator: id,
-              karma,
-              address: {
-                street: street,
-                postalCode: zip,
-                city: city
-              },
-              location: {
-                type: "Point",
-                coordinates: [queryLatitude, queryLongitude]
-              }
-            })
-              .then(response => {
-                res.json(response);
-              })
-              .catch(err => {
-                res.json(err);
-              });
+    return axios
+      .get(queryString)
+      .then(response => {
+        const queryLatitude = response.data[0].lat;
+        const queryLongitude = response.data[0].lon;
+        console.log(`Location geocoded: ${userStreet}`);
+
+        return Posting.create({
+          title,
+          description,
+          creator: user._id,
+          karma,
+          address: {
+            street: userStreet,
+            postalCode: userZip,
+            city: userCity
           },
-          error => {
-            console.error(error);
+          location: {
+            type: "Point",
+            coordinates: [queryLatitude, queryLongitude]
           }
-        );
+        }).then(response => {
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
+        });
       })
       .catch(err => {
-        console.error(err);
+        console.log(err);
       });
   }
 
@@ -109,36 +111,34 @@ router.post("/", (req, res, next) => {
     const queryString = `https://eu1.locationiq.com/v1/search.php?key=${apiKey}&street=${street}&city=${city}&postalcode=${zip}&format=json`;
     axios
       .get(queryString)
-      .then(
-        response => {
-          const queryLatitude = response.data[0].lat;
-          const queryLongitude = response.data[0].lon;
-          Posting.create({
-            title,
-            description,
-            creator: id,
-            karma,
-            address: {
-              street: street,
-              postalCode: zip,
-              city: city
-            },
-            location: {
-              type: "Point",
-              coordinates: [queryLatitude, queryLongitude]
-            }
-          })
-            .then(response => {
-              res.json(response);
-            })
-            .catch(err => {
-              res.json(err);
-            });
-        },
-        error => {
-          console.error(error);
-        }
-      )
+      .then(response => {
+        const queryLatitude = response.data[0].lat;
+        const queryLongitude = response.data[0].lon;
+        return Posting.create({
+          title,
+          description,
+          creator: user._id,
+          karma,
+          address: {
+            street: street,
+            postalCode: zip,
+            city: city
+          },
+          location: {
+            type: "Point",
+            coordinates: [queryLatitude, queryLongitude]
+          }
+        }).then(response => {
+          console.log(
+            `Posting saved to Database with title: ${response.title}`
+          );
+          const postingId = response._id;
+          const amount = -karma;
+          const type = "escrow";
+          const userId = response.creator;
+          return performTransaction(postingId, amount, type, userId, res);
+        });
+      })
       .catch(err => {
         console.error(err);
       });
@@ -231,13 +231,17 @@ router.put("/:id", (req, res, next) => {
     return;
   }
 
-  Posting.findByIdAndUpdate(postId, {
-    $pull: { applicant: req.body.applicantId },
-    $push: { otherParty: req.body.applicantId }
-  })
-    .then(() => {
+  Posting.findByIdAndUpdate(
+    postId,
+    {
+      $pull: { applicant: req.body.applicantId },
+      $push: { otherParty: req.body.applicantId }
+    },
+    { new: true }
+  )
+    .then(posting => {
       res.json({
-        message: `Posting with ${id} is updated successfully`
+        posting
       });
     })
     .catch(err => {
@@ -267,10 +271,22 @@ router.delete("/:id", (req, res, next) => {
 router.post("/:id/apply", (req, res, next) => {
   console.log(req.params.id);
   console.log(req.user._id);
-  Posting.findByIdAndUpdate(req.params.id, {
-    $push: { applicant: req.user._id }
-  })
+  Posting.findByIdAndUpdate(
+    req.params.id,
+    {
+      $push: { applicant: req.user._id }
+    },
+    { new: true }
+  )
+    .populate([
+      { path: "creator", model: "User" },
+      { path: "applicant", model: "User" },
 
+      {
+        path: "message.user",
+        model: "User"
+      }
+    ])
     .then(response => {
       res.status(200).json(response);
     })

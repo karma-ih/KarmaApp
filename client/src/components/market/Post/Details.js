@@ -13,7 +13,7 @@ class MarketPostDetails extends React.Component {
         applicantId: e
       })
       .then(response => {
-        console.log(response);
+        this.props.handleConfirm(response.data.posting.otherParty);
       })
       .catch(err => {
         console.log(err);
@@ -26,19 +26,25 @@ class MarketPostDetails extends React.Component {
     console.log(this.props.details.applicant);
     let applicantNameArr = this.props.details.applicant.map((applicant, i) => {
       return (
-        <div>
-          <h3 key={applicant._id}>
-            Applicant for the Posting: {applicant.facebookName}
-            {applicant.username}
-          </h3>
-          <Button
-            onClick={() => {
-              this.confirmApplicant(applicant._id);
-            }}
-          >
-            Confirm
-          </Button>
-        </div>
+        <>
+          {this.props.details.otherParty.length <= 0 &&
+            this.props.details.creator._id === this.props.user._id && (
+              <div>
+                <h3 key={applicant._id}>
+                  Applicant for the Posting: {applicant.facebookName}
+                  {applicant.username}
+                </h3>
+
+                <Button
+                  onClick={() => {
+                    this.confirmApplicant(applicant._id);
+                  }}
+                >
+                  Confirm
+                </Button>
+              </div>
+            )}
+        </>
       );
     });
     console.log(applicantNameArr);

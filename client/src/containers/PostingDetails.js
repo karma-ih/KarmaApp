@@ -15,7 +15,8 @@ class PostingDetails extends Component {
     creator: {},
     applicant: [],
     message: [],
-    otherParty: []
+    otherParty: [],
+    isDone: false
   };
 
   getPosting = () => {
@@ -34,7 +35,8 @@ class PostingDetails extends Component {
           applicant,
           creator,
           message,
-          otherParty
+          otherParty,
+          isDone
         } = response.data;
         this.setState({
           title,
@@ -46,7 +48,8 @@ class PostingDetails extends Component {
           city,
           applicant,
           message,
-          otherParty
+          otherParty,
+          isDone
         });
       })
       .catch(err => {
@@ -80,12 +83,28 @@ class PostingDetails extends Component {
     this.getPosting();
   }
 
-  render() {
-    console.log("userid", this.props.user._id);
-    console.log("applicant", this.state.applicant._id);
-    console.log("creator", this.state.creator._id);
+  triggerPayOut = () => {
+    const { id } = this.props.match.params;
+    const { karma } = this.state;
+    const userId = this.state.otherParty[0]._id;
+    console.log(id, karma, userId);
+    return axios
+      .put(`/api/postings/${id}/pay`, { id, karma, userId })
+      .then(response => {
+        // console.log(response.data.isDone);
+        this.setState({ isDone: response.data.isDone });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-    console.log(this.state.applicant);
+  render() {
+    // console.log("userid", this.props.user._id);
+    // console.log("applicant", this.state.applicant._id);
+    // console.log("creator", this.state.creator._id);
+
+    // console.log(this.state.applicant);
     return (
       <div>
         <MarketPostDetails
@@ -103,6 +122,11 @@ class PostingDetails extends Component {
         {!this.state.applicant.find(el => el._id === this.props.user._id) &&
           this.props.user._id !== this.state.creator._id && (
             <Button onClick={this.applyPosting}>Apply</Button>
+          )}
+        {this.props.user._id === this.state.creator._id &&
+          this.state.otherParty.length >= 1 &&
+          this.state.isDone === false && (
+            <Button onClick={this.triggerPayOut}>Mark as Done</Button>
           )}
       </div>
     );

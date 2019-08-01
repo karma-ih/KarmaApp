@@ -8,7 +8,7 @@ const apiKey = process.env.LOCATION_IQ_KEY;
 
 const Posting = require("../models/Posting");
 const User = require("../models/User");
-const performTransaction = require("./transactions");
+const { performEscrow, performPayout } = require("./transactions");
 
 //POST ROUTE FOR POSTINGS
 router.post("/", (req, res, next) => {
@@ -24,6 +24,13 @@ router.post("/", (req, res, next) => {
     longitude
   } = req.body;
   const user = req.body.user;
+
+  if (user.karma - karma <= 0) {
+    res.status(400).json({
+      message: "Your do not have enough karma to perform this action."
+    });
+    return;
+  }
 
   if (selectedLocation === "current") {
     const queryString = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
@@ -56,10 +63,12 @@ router.post("/", (req, res, next) => {
           const amount = -karma;
           const type = "escrow";
           const userId = response.creator;
-          return performTransaction(postingId, amount, type, userId, res);
+          return performEscrow(postingId, amount, type, userId, res);
         })
         .catch(err => {
-          console.log(err);
+          res
+            .status(err.response.status)
+            .json({ message: `${err.response.data.error}` });
         });
     });
   }
@@ -99,11 +108,13 @@ router.post("/", (req, res, next) => {
           const amount = -karma;
           const type = "escrow";
           const userId = response.creator;
-          return performTransaction(postingId, amount, type, userId, res);
+          return performEscrow(postingId, amount, type, userId, res);
         });
       })
       .catch(err => {
-        console.log(err);
+        res
+          .status(err.response.status)
+          .json({ message: `${err.response.data.error}` });
       });
   }
 
@@ -136,11 +147,13 @@ router.post("/", (req, res, next) => {
           const amount = -karma;
           const type = "escrow";
           const userId = response.creator;
-          return performTransaction(postingId, amount, type, userId, res);
+          return performEscrow(postingId, amount, type, userId, res);
         });
       })
       .catch(err => {
-        console.error(err);
+        res
+          .status(err.response.status)
+          .json({ message: `${err.response.data.error}` });
       });
   }
 });
@@ -176,10 +189,23 @@ router.get("/", (req, res, next) => {
         Posting.find({ applicant: req.query.user }).then(postingsApplicant => {
           Posting.find({ otherParty: req.query.user }).then(
             postingOtherParty => {
-              res.json({
-                postings: allPostings,
-                postings_applicant: postingsApplicant,
-                postings_otherParty: postingOtherParty
+              Posting.find({
+                $and: [
+                  { isDone: true },
+                  {
+                    $or: [
+                      { creator: req.query.user },
+                      { otherParty: req.query.user }
+                    ]
+                  }
+                ]
+              }).then(postingsDone => {
+                res.json({
+                  postings: allPostings,
+                  postings_applicant: postingsApplicant,
+                  postings_otherParty: postingOtherParty,
+                  postings_done: postingsDone
+                });
               });
             }
           );
@@ -205,6 +231,7 @@ router.get("/:id", (req, res, next) => {
     .populate([
       { path: "creator", model: "User" },
       { path: "applicant", model: "User" },
+      { path: "otherParty", model: "User" },
 
       {
         path: "message.user",
@@ -239,6 +266,7 @@ router.put("/:id", (req, res, next) => {
     },
     { new: true }
   )
+    .populate({ path: "otherParty", model: "User" })
     .then(posting => {
       res.json({
         posting
@@ -293,6 +321,14 @@ router.post("/:id/apply", (req, res, next) => {
     .catch(err => {
       res.json(err);
     });
+});
+
+router.put("/:id/pay", (req, res) => {
+  const { id, karma, userId } = req.body;
+  console.log(id, karma, userId);
+  const type = "completed";
+  const isDone = true;
+  performPayout(id, karma, type, userId, isDone, res);
 });
 
 module.exports = router;

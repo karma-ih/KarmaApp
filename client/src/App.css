@@ -27,6 +27,9 @@ h2 {
   height: 250px;
   background: black;
   margin: 10px;
+  -webkit-box-shadow: 10px 10px 31px -12px rgba(0, 0, 0, 0.79);
+  -moz-box-shadow: 10px 10px 31px -12px rgba(0, 0, 0, 0.79);
+  box-shadow: 10px 10px 31px -12px rgba(0, 0, 0, 0.79);
 }
 
 .card-xt {

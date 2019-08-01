@@ -30,8 +30,8 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log(this.props.user);
-    console.log(this.state.postings);
+    // console.log(this.props.user);
+    // console.log(this.state.postings);
 
     const { email, phoneNumber, imageUrl } = this.props.user;
     const { street, city, postalCode, country } = this.props.user.address;

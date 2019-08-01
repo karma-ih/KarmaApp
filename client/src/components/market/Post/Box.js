@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const MarketPostBox = props => {
   const { title, karma, _id, description } = props.posting;
-  console.log(props);
+  // console.log(props);
   return (
     <div className={props.className}>
       <div style={{ backgroundColor: "black" }}>

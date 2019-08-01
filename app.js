@@ -55,10 +55,10 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 //On heroku mod uncomment below
-// app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
@@ -91,5 +91,11 @@ app.use("/api/postings", postings);
 
 const auth = require("./routes/auth");
 app.use("/api/auth", auth);
+
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
+
 
 module.exports = app;

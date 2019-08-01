@@ -40,7 +40,6 @@ const Home = () => {
       <div>
         <LandingCarousel />
       </div>
-      <MarketPlaceCarousel />
     </div>
   );
 };

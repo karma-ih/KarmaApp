@@ -83,7 +83,20 @@ class MarketPostForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="posting-card">
+        <div style={{ backgroundColor: "black" }}>
+          <img
+            src="/karmalogo.png"
+            width="45"
+            height="45"
+            style={{ margin: "10" }}
+            className="d-inline-block align-top"
+            alt="KarmaApp logo"
+          />
+          <span style={{ color: "orange", margin: "auto 0" }}>
+            {this.state.karma}
+          </span>
+        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label>Title:</Form.Label>

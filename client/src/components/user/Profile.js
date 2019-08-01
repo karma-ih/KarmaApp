@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MarketPostList from "../market/Post/List";
 import axios from "axios";
+import Image from "react-bootstrap/Image";
 
 class Profile extends React.Component {
   state = {
@@ -36,32 +37,34 @@ class Profile extends React.Component {
     const { street, city, postalCode, country } = this.props.user.address;
     return (
       <>
-        <img src={imageUrl} alt="user image" />
-        <p> Email: {email}</p>
-        <p> Tel.: {phoneNumber}</p>
-        <h2>Address:</h2>
-        <p>Street:{street}</p>
-        <p>City: {city}</p>
-        <p>Zip: {postalCode}</p>
-        <p>Country: {country}</p>
-        <Link to="/profile/edit">
-          <Button>Edit User Information</Button>
-        </Link>
+        <div className="profile-card">
+          <Image width="300" rounded src={imageUrl} alt="user image" />
+          <p> Email: {email}</p>
+          <p> Tel.: {phoneNumber}</p>
+          <h2>Address:</h2>
+          <p>Street:{street}</p>
+          <p>City: {city}</p>
+          <p>Zip: {postalCode}</p>
+          <p>Country: {country}</p>
+          <Link to="/profile/edit">
+            <Button>Edit User Information</Button>
+          </Link>
+        </div>
 
         {/* {this.props.user._id !== this.state.creator._id && (
           <Button onClick={this.applyPosting}>Apply</Button>
         )} */}
-        <div>CREATOR</div>
+        {/* {this.state.postings.length > 0 && <div>CREATOR</div>}
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList className="card" postings={this.state.postings} />
         </div>
-        <div>APPLICANT</div>
+        {this.state.postings_applicant.length > 0 && <div>APPLICANT</div>}
         <div className="scrolling-wrapper-flexbox">
           <MarketPostList
             className="card"
             postings={this.state.postings_applicant}
-          />
-        </div>
+          /> */}
+        {/* </div> */}
       </>
     );
   }

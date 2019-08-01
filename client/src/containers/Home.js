@@ -16,7 +16,13 @@ const Home = () => {
         className="landingOne"
       >
         <div className="landingText">
-          <h3>Fuero Karma Kultur</h3>
+          <img
+            className="scale-up-center landing-logo"
+            width="150px"
+            src="/Background.png"
+            alt=""
+          />
+          {/* <h3>Fuero Karma Kultur</h3>
           <h6>
             Fuero: [Latin] a forum, an open space used as market, tribunal and
             meeting place.
@@ -28,7 +34,7 @@ const Home = () => {
           <h6>
             Kultur: Manifestations of human intellectual achievement regarded
             collectively.
-          </h6>
+          </h6> */}
         </div>
       </div>
       <div>

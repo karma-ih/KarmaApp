@@ -1,24 +1,32 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
-import { facebooksignin } from "../services/api";
+import { facebookverify } from "../services/api";
 
-export class Facebook extends Component {
+class Facebook extends Component {
   responseFacebook = response => {
     console.log(response);
-
-    const { name, id } = response;
+    const { id, name } = response;
     const imageUrl = response.picture.data.url;
-    facebooksignin(name, id, imageUrl);
+    this.props.handleFacebook(id, name, imageUrl);
+    facebookverify(id)
+      .then(response => {
+        this.props.setError(response.message);
+        // console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   render() {
     return (
       <FacebookLogin
-        appId="422359151955764"
+        appId="2273317312918577"
         callback={this.responseFacebook}
         // autoLoad={true}
         fields="name,email,picture"
         icon="fa-facebook"
+        textButton="verify with facebook"
       />
     );
   }

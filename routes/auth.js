@@ -6,6 +6,11 @@ const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
 
+const {
+  performStartKarmaPayment,
+  checkUserTransactions
+} = require("./transactions");
+
 authRoutes.post("/signup", (req, res, next) => {
   const {
     username,
@@ -16,7 +21,9 @@ authRoutes.post("/signup", (req, res, next) => {
     postalCode,
     city,
     country,
-    imageUrl
+    imageUrl,
+    facebookId,
+    facebookName
   } = req.body;
 
   if (!username || !password) {
@@ -44,7 +51,9 @@ authRoutes.post("/signup", (req, res, next) => {
         username,
         password: hashPass,
         email,
+        facebookId,
         phoneNumber,
+        facebookName,
         address: {
           street,
           postalCode,
@@ -59,9 +68,13 @@ authRoutes.post("/signup", (req, res, next) => {
               .status(500)
               .json({ message: "Error while attempting login" });
           }
-
-          res.status(200).json(newUser);
         });
+        // login karma payment
+        const amount = 100;
+        const type = "completed"; // change to "initial"
+        const userId = newUser._id;
+        return performStartKarmaPayment(amount, type, userId, res);
+        // ends here
       });
     })
     .catch(err => {
@@ -71,21 +84,25 @@ authRoutes.post("/signup", (req, res, next) => {
 });
 
 authRoutes.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user) => {
+  passport.authenticate("local", async (err, user) => {
     if (err) {
       return res.status(500).json({ message: "Error while authenticating" });
     } else if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    req.login(user, err => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ message: "Error while attempting to login" });
-      }
+    const test = await checkUserTransactions(user);
+    console.log(test);
+    if (test) {
+      req.login(user, err => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ message: "Error while attempting to login" });
+        }
 
-      return res.status(200).json(user);
-    });
+        return res.status(200).json(user);
+      });
+    } else res.status(500).json({ message: "Fraud detected" });
   })(req, res);
 });
 
@@ -130,57 +147,27 @@ authRoutes.put("/editprofile", (req, res, next) => {
   });
 });
 
-// Dominik: Why are there three facebook routes @Alican?
+//Facebook Verification
 
-authRoutes.get("/facebook", passport.authenticate("facebook"));
-
-authRoutes.get(
-  "/auth/facebook/callback",
-  passport.authenticate("facebook", {
-    successRedirect: "/",
-    failureRedirect: "/login"
-  })
-);
-
-//Fcebook Login Route
-
-authRoutes.post("/signup/facebook", (req, res, next) => {
-  console.log(req.body);
-  const { name, id, imageUrl } = req.body;
+authRoutes.post("/facebook/verify", (req, res) => {
+  // console.log(req.body);
+  const { id } = req.body;
 
   User.findOne({ facebookId: id })
     .then(user => {
       if (user) {
-        return req.login(user, err => {
-          if (err) {
-            return res
-              .status(500)
-              .json({ message: "Error while attempting to login" });
-          }
-          return res.status(200).json(user);
-        });
-      }
-
-      if (!user) {
-        return User.create({
-          facebookName: name,
-          facebookId: id,
-          imageUrl: imageUrl
-        }).then(newUser => {
-          req.login(newUser, err => {
-            if (err) {
-              return res
-                .status(500)
-                .json({ message: "Error while attempting login" });
-            }
-
-            res.status(200).json(newUser);
-          });
-        });
-      }
+        console.log(user);
+        return res
+          .status(200)
+          .json({ message: "Facebook account already in use" });
+      } else
+        return res
+          .status(200)
+          .json({ message: "Facebook verification complete" });
     })
     .catch(err => {
-      res.status(500).json({ message: "Error at signup" });
+      console.log(err);
+      res.status(500).json({ message: "Error at facebook verification" });
     });
 });
 

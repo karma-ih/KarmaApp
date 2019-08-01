@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { login } from "../services/api";
-import Facebook from "../components/Facebook";
 import { Form, Button, Alert } from "react-bootstrap";
 
 export default class Login extends Component {
@@ -67,7 +66,6 @@ export default class Login extends Component {
             Login
           </button>
         </Form>
-        <Facebook />
       </div>
     );
   }

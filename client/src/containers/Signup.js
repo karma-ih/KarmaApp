@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import Facebook from "../components/Facebook";
 
 class Signup extends Component {
   state = {
@@ -59,7 +58,6 @@ class Signup extends Component {
             Signup
           </button>
         </Form>
-        <Facebook />
       </div>
     );
   }

@@ -6,7 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import NavigationBar from "./components/navbar/NavigationBar";
 import PostingDetails from "./containers/PostingDetails";
 import Postings from "./containers/Postings";
-import Signup from "./containers/Signup";
+// import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Home from "./containers/Home";
 import AppBar from "./components/appbar/AppBar";
@@ -36,16 +36,16 @@ class App extends Component {
         <NavigationBar setUser={this.setUser} user={this.state.user} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Protected
+          {/* <Protected
             exact
             path="/signup"
             redirectPath="/market"
             user={!this.state.user}
             component={Signup}
-          />
+          /> */}
           <Protected
             exact
-            path="/signup/info"
+            path="/signup"
             redirectPath="/market"
             setUser={this.setUser}
             user={!this.state.user}

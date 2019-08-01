@@ -14,7 +14,9 @@ const signup = (
   postalCode,
   city,
   country,
-  imageUrl
+  imageUrl,
+  facebookId,
+  facebookName
 ) =>
   axios
     .post("/api/auth/signup", {
@@ -26,7 +28,9 @@ const signup = (
       postalCode,
       city,
       country,
-      imageUrl
+      imageUrl,
+      facebookId,
+      facebookName
     })
     .then(response => response.data);
 
@@ -54,13 +58,9 @@ const editProfile = (
 const logout = () =>
   axios.post("/api/auth/logout").then(response => response.data);
 
-const facebooksignin = (name, id, imageUrl) =>
+const facebookverify = id =>
   axios
-    .post("/api/auth/signup/facebook", {
-      name: name,
-      id: id,
-      imageUrl: imageUrl
-    })
+    .post("/api/auth//facebook/verify", { id })
     .then(response => response.data);
 
-export { login, signup, logout, facebooksignin, editProfile };
+export { login, signup, logout, facebookverify, editProfile };

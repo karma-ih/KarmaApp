@@ -36,7 +36,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <React.Fragment className="FacebookLogin">
+      <div className=" profile-card">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="username">Username:</Form.Label>
@@ -63,10 +63,12 @@ export default class Login extends Component {
             <Alert variant="warning">{this.state.error}</Alert>
           )}
 
-          <Button type="submit">Login</Button>
+          <button className="example_c" type="submit">
+            Login
+          </button>
         </Form>
         <Facebook />
-      </React.Fragment>
+      </div>
     );
   }
 }

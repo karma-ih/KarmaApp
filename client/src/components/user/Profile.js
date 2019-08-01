@@ -47,7 +47,7 @@ class Profile extends React.Component {
           <p>Zip: {postalCode}</p>
           <p>Country: {country}</p>
           <Link to="/profile/edit">
-            <Button>Edit User Information</Button>
+            <button className="example_c">Edit User Information</button>
           </Link>
         </div>
 

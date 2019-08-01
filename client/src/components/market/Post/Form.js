@@ -88,7 +88,7 @@ class MarketPostForm extends Component {
 
   render() {
     return (
-      <div className="posting-card">
+      <div className="post-card">
         <div style={{ backgroundColor: "black" }}>
           <img
             src="/karmalogo.png"
@@ -197,7 +197,10 @@ class MarketPostForm extends Component {
           {this.state.error && (
             <Alert variant="warning">{this.state.error}</Alert>
           )}
-          ​<Button type="submit">Add</Button>
+          ​
+          <button className="example_c" type="submit">
+            Add
+          </button>
         </Form>
       </div>
     );

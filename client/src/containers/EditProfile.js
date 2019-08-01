@@ -69,7 +69,7 @@ class EditProfile extends Component {
   render() {
     console.log(this.state.imageUrl);
     return (
-      <React.Fragment>
+      <div className=" profile-card">
         <CloudinaryWidget handleCloudinary={this.handleCloudinary} />
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
@@ -146,7 +146,7 @@ class EditProfile extends Component {
             Save Changes
           </button>
         </Form>
-      </React.Fragment>
+      </div>
     );
   }
 }

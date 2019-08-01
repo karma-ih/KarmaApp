@@ -83,8 +83,8 @@ app.locals.title = "KarmaApp";
 
 // ROUTES MIDDLEWARE STARTS HERE:
 
-const index = require("./routes/index");
-app.use("/", index);
+// const index = require("./routes/index");
+// app.use("/", index);
 
 const postings = require("./routes/postings");
 app.use("/api/postings", postings);

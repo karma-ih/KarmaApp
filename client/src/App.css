@@ -135,10 +135,10 @@ nav > button {
 
 .landingOne {
   height: 85vh;
-  background-image: url("/kazuend-2KXEb_8G5vo-unsplash.jpg");
+  background-image: url("https://images.unsplash.com/photo-1496989981497-27d69cdad83e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2644&q=80");
   background-position: center;
   background-size: cover;
-  color: orange;
+  color: white;
 }
 
 .fa-map-marker-alt {
@@ -151,6 +151,39 @@ nav > button {
 }
 
 .FacebookLogin {
-background-color: #F7F1D7;
-background-image: url("/Background Login.jpg");
+  background-color: #f7f1d7;
+  background-image: url("/Background Login.jpg");
+}
+
+.example_b {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffa323;
+  padding: 10px;
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  font-size: 0.8rem;
+}
+
+.example_b:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
+  text-decoration: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.div.mapboxgl-popup-content {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.card-map {
+  margin: 0;
+  padding: 0;
 }

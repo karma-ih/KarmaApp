@@ -17,6 +17,7 @@ import EditProfile from "./containers/EditProfile";
 import ProfileView from "./containers/ProfileView";
 import SignupInfo from "./containers/SignupTwo";
 import DashBoard from "./containers/DashBoard";
+import ParticleComponent from "./components/ParticleComponent";
 
 class App extends Component {
   state = {

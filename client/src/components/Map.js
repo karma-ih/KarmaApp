@@ -108,10 +108,38 @@ export default function Mapview() {
               setSelectedTask(null);
             }}
           >
-            <div className="mapbox-popup">
-              <h2>{selectedTask.title}</h2>
+            <div
+              className="card card-xt card-map"
+              style={{ width: "200px", height: "125px" }}
+            >
+              <div style={{ backgroundColor: "black" }}>
+                <img
+                  src="/karmalogo.png"
+                  width="45"
+                  height="45"
+                  style={{ margin: "10" }}
+                  className="d-inline-block align-top"
+                  alt="KarmaApp logo"
+                />
+                <span style={{ color: "orange", margin: "auto 0" }}>
+                  {selectedTask.karma}
+                </span>
+              </div>
+
               <p>{selectedTask.description}</p>
-              <Link to={`/market/${selectedTask._id}`}>GO</Link>
+              <p>{}</p>
+              <Link to={`/market/${selectedTask._id}`}>
+                <div class="button_cont" align="center">
+                  <a
+                    class="example_b"
+                    href="add-website-here"
+                    target="_blank"
+                    rel="nofollow noopener"
+                  >
+                    View
+                  </a>
+                </div>
+              </Link>
             </div>
           </Popup>
         ) : null}

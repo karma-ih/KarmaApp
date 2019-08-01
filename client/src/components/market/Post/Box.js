@@ -6,12 +6,32 @@ const MarketPostBox = props => {
   console.log(props);
   return (
     <div className={props.className}>
-      <Link to={`/market/${_id}`}>
-        <h5>{title}</h5>
-      </Link>
-      <span style={{ color: "orange" }}>Karma: {karma}</span>
+      <div style={{ backgroundColor: "black" }}>
+        <img
+          src="/karmalogo.png"
+          width="45"
+          height="45"
+          style={{ margin: "10" }}
+          className="d-inline-block align-top"
+          alt="KarmaApp logo"
+        />
+        <span style={{ color: "orange", margin: "auto 0" }}>{karma}</span>
+      </div>
+
       <p>{description}</p>
       <p>{}</p>
+      <Link to={`/market/${_id}`}>
+        <div class="button_cont" align="center">
+          <a
+            class="example_b"
+            href="add-website-here"
+            target="_blank"
+            rel="nofollow noopener"
+          >
+            View
+          </a>
+        </div>
+      </Link>
     </div>
   );
 };

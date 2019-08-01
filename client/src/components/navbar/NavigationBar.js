@@ -13,7 +13,11 @@ const handleLogout = props => {
 const NavigationBar = props => {
   return (
     <Navbar
-      style={{ backgroundColor: "#000", borderBottom: "2px solid #E7E7E7" }}
+      style={{
+        backgroundColor: "#000",
+        zIndex: 99,
+        borderBottom: "2px solid #E7E7E7"
+      }}
     >
       <Link to="/" style={{ textDecoration: "none" }}>
         <Navbar.Brand>

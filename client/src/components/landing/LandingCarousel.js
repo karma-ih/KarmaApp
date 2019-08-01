@@ -1,22 +1,25 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 
+const carouselStyle = {
+  height: "60vh",
+  backgroundColor: "black",
+  paddingTop: "75px",
+  paddingBottom: "75px"
+};
+
+const logoStyle = {
+  color: "white",
+  fontSize: "6rem"
+};
+
 const LandingCarousel = () => {
   return (
     <div>
       <Carousel>
         <Carousel.Item>
-          <div
-            style={{
-              height: "80vh",
-              backgroundColor: "black",
-              paddingTop: "25px"
-            }}
-          >
-            <i
-              style={{ color: "white", fontSize: "5rem" }}
-              className="fas fa-city"
-            />
+          <div style={carouselStyle}>
+            <i style={logoStyle} className="fas fa-city" />
           </div>
           <Carousel.Caption>
             <h3>Join the community</h3>
@@ -24,17 +27,8 @@ const LandingCarousel = () => {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <div
-            style={{
-              height: "80vh",
-              backgroundColor: "black",
-              paddingTop: "25px"
-            }}
-          >
-            <i
-              style={{ color: "white", fontSize: "5rem" }}
-              className="fas fa-hands-helping"
-            />
+          <div style={carouselStyle}>
+            <i style={logoStyle} className="fas fa-hands-helping" />
           </div>
           <Carousel.Caption>
             <h3>Discover Marketplace</h3>
@@ -45,17 +39,8 @@ const LandingCarousel = () => {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <div
-            style={{
-              height: "80vh",
-              backgroundColor: "black",
-              paddingTop: "25px"
-            }}
-          >
-            <i
-              style={{ color: "white", fontSize: "5rem" }}
-              className="fas fa-comments"
-            />
+          <div style={carouselStyle}>
+            <i style={logoStyle} className="fas fa-comments" />
           </div>
           <Carousel.Caption>
             <h3>Post and comments</h3>

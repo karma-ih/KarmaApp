@@ -10,14 +10,15 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <h4>Search</h4>
+      <div id="searchcomp">
+        <h1>Marketplace</h1>
         <input
           name="searchInput"
           type="text"
           value={this.props.searchInput}
           onChange={this.handleSearch}
           className="searchInput"
+          placeholder="search the marketplace"
         />
         <button size="sm" className="example_c" onClick={this.props.sortByName}>
           Sort Name

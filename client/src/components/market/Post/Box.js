@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MarketPostBox = props => {
-  const { title, karma, _id, description } = props.posting;
+  const { title, karma, _id, description, creator, address } = props.posting;
   console.log("konsol", props);
   // console.log(props);
   return (
@@ -19,8 +19,20 @@ const MarketPostBox = props => {
         <span style={{ color: "orange", margin: "auto 0" }}>{karma}</span>
       </div>
 
-      <p>{description}</p>
-      <p>{}</p>
+      {/* <p>{description}</p> */}
+      <p style={{ marginTop: "10px" }}>
+        <strong>{`${title
+          .split(" ")
+          .slice(0, 4)
+          .join(" ")}`}</strong>
+      </p>
+      <p style={{ marginTop: "0", marginBottom: "0" }}>
+        {`"${description.substring(0, 40)}..."`}
+      </p>
+      <p>
+        <strong>{creator.username}</strong>
+        {`  (${address.city})`}
+      </p>
       <Link to={`/market/${_id}`}>
         <div class="button_cont" align="center">
           <a

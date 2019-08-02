@@ -67,7 +67,7 @@ export default class Login extends Component {
             Login
           </button>
         </Form>
-        <Facebook />
+        {/* <Facebook /> */}
       </div>
     );
   }

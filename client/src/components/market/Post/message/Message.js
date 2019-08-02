@@ -20,7 +20,7 @@ const Message = props => {
             <span style={{ margin: "0 auto", color: "orange" }}>{user}</span>
           </h5>
         </div>
-        <div className="col-9">
+        <div className="col-9 col-9-emergency" style={{ textAlign: "left" }}>
           <p>{message}</p>
         </div>
       </div>

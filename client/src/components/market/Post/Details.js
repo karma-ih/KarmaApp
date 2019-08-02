@@ -62,20 +62,20 @@ class MarketPostDetails extends React.Component {
         </div>
         <h3>{title}</h3>
         <p>{description}</p>
-        <img className="detail-img" src={creator.imageUrl} alt="" />
+        {/* <img className="detail-img" src={creator.imageUrl} alt="" /> */}
         <p>Created By: {creator.facebookName}</p>
         {applicantNameArr}
         {this.props.details.otherParty.length >= 1 &&
           this.props.details.creator._id === this.props.user._id &&
           !this.props.details.isDone && (
-            <div>
+            <div className="turkey">
               {this.props.details.otherParty[0].username} is helping you :)
             </div>
           )}
         {this.props.details.isDone &&
           (this.props.details.otherParty[0]._id === this.props.user._id ||
             this.props.details.creator._id === this.props.user._id) && (
-            <div>Job is done</div>
+            <div className="turkey">Job is done</div>
           )}
       </div>
     );

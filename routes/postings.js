@@ -184,6 +184,7 @@ router.get("/", (req, res, next) => {
   // console.log(req.query.user);
 
   Posting.find(query)
+    .populate({ path: "creator", model: "User" })
     .then(allPostings => {
       if (req.query.user) {
         Posting.find({ applicant: req.query.user }).then(postingsApplicant => {

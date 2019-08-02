@@ -306,6 +306,10 @@ nav > button {
   margin-bottom: 2.5%;
 }
 
+.post-card .detail-img {
+  width: 300px;
+}
+
 @media screen and (max-width: 576px) {
   .post-card {
     width: 95%;
@@ -365,4 +369,69 @@ nav > button {
   .msg-card img {
     width: 100%;
   }
+}
+
+@media screen and (min-width: 800px) {
+  .searchInput {
+    width: 40%;
+    margin: 20px 0;
+  }
+
+  #searchcomp button {
+    margin: 0 6px;
+  }
+
+  #searchcomp h1 {
+    margin: 40px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .searchInput {
+    width: 80%;
+    margin: 5px 0;
+  }
+
+  #searchcomp button {
+    width: 37%;
+    margin: 5px 3%;
+    margin-bottom: 10px;
+  }
+
+  #searchcomp h1 {
+    margin: 15px;
+  }
+
+  .card-xt {
+    width: 80%;
+  }
+}
+
+.card-xt {
+  overflow: hidden;
+}
+.card-xt .button_cont {
+  /* width: 500px !important; */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+
+.card-xt .example_b {
+  width: 150px;
+}
+
+.msg-card {
+  overflow: hidden;
+}
+
+.msg-card span {
+  font-size: 0.75rem;
+}
+
+.turkey {
+  border-radius: 10px;
+  background-color: lightgray;
 }

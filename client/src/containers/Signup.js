@@ -59,7 +59,7 @@ class Signup extends Component {
             Signup
           </button>
         </Form>
-        <Facebook />
+        {/* <Facebook /> */}
       </div>
     );
   }

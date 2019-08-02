@@ -32,6 +32,13 @@ router.post("/", (req, res, next) => {
     return;
   }
 
+  if (karma < 0) {
+    res.status(400).json({
+      message: "There is no such thing as negative karma."
+    });
+    return;
+  }
+
   if (selectedLocation === "current") {
     const queryString = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
 
